@@ -13,6 +13,7 @@ class Perfil extends Model
         'usuario_id',
         'fecha_nacimiento',
         'altura',
+        'busto',
         'cintura',
         'cadera',
         'calzado', 

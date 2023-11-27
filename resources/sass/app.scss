@@ -1,0 +1,16 @@
+@charset 'utf-8';
+// Fonts
+@import url('https://fonts.googleapis.com');
+@import url('https://fonts.gstatic.com');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+
+// Formato Black 
+@import '_layout';
+@import 'components/_perfil';
