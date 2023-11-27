@@ -1,7 +1,7 @@
 # BinaryModel
 Proyecto Piloto 
 
-## Pasos para validar prouecto. 
+## Pasos para validar desarrollo. 
 - composer install
 - npm run dev
 - php artisan migrate:refresh --seed
@@ -13,4 +13,6 @@ Proyecto Piloto
 ## Detalles pendienntes
 - Generar el login
 - vincular el middleware para seguridad al router
+- Integrar formulario con base
+- integrar datos con la vista previsualización
   
