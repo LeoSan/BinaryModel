@@ -26,6 +26,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /**
+         * expresion regular para cubrir la seguridad del id
+         */
+        Route::pattern('id', '[0-9]+');
+
         $this->configureRateLimiting();
 
         $this->routes(function () {
@@ -35,6 +40,10 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::middleware(['web'])
+                ->prefix('perfil')
+                ->group(base_path('routes/perfiles.php'));
         });
     }
 
