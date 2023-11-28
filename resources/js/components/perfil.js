@@ -26,17 +26,20 @@ if (form1){
         }
 
         //animaciones 
-        document.getElementById('form1_loading').classList.remove('d-none'); // Get element from DOM
+        document.getElementById('form1_loading').classList.remove('d-none'); 
+        document.getElementById('msgSuccess').classList.add('d-none')
+        document.getElementById('msgError').classList.add('d-none')
         document.getElementById('form_fisico').style.display = "none";   
         document.getElementById('btnFisico').disabled = true;
+        
 
         //Envio 
         const ruta = 'http://binarymodel.test/perfil/registrar';
         const result = await sendAxios(obj, ruta);
         //Animaciones
 
-        setTimeout(() => {
-            document.getElementById('form1_loading').classList.add('d-none') // Get element from DOM
+        await setTimeout(() => {
+            document.getElementById('form1_loading').classList.add('d-none') 
             document.getElementById('form_fisico').style.display = "block";   
             document.getElementById('btnFisico').removeAttribute('disabled');
         }, 2000);
