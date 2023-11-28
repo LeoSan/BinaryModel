@@ -2,12 +2,11 @@
 @section('content')
 
 @include('perfiles.partials.tabs', ['form'=>'active', 'preView'=>'' ] )
-
-
         <div class="card bg-white">
             <div class="card-header"> Datos Generales </div>
             <form action="#" id="form_perfil_fisico" method="POST" autocomplete="off" accept-charset="UTF-8" enctype="multipart/form-data">
-            @csrf
+                @csrf
+                <input id="tipo" name="tipo" type="hidden" value="formulario"/>
 
                 {{-- Loading  --}}
                 @include('perfiles.animations.anime-form', ['id'=>'form1_loading', 'estilos'=>'animate-pulse', 'mensaje'=>'Guardando...'] )

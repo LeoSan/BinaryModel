@@ -13,7 +13,7 @@
         <div class="row align-items-center justify-content-start">
             <div class="col-lg-12">
                 <h1 class="heading text-center mt-5" data-aos="fade">
-                    <input id="inpNombre" name="inpNombre" type="text" value="EDGAR CONTI" class="inp-title">
+                    <input id="inpNombre" name="inpNombre" type="text" value="{{$perfil->usuario->name}}" class="inp-title">
                 </h1>
             </div>
         </div>
@@ -24,42 +24,42 @@
     <div class="custom-lg medidas">
         <p>
             <strong>HEIGHT</strong>      
-            <input id="inpAltuta" name="inpAltuta" type="text"  value="1,70">
+            <input id="inpAltuta" name="inpAltuta" type="text"  value="{{$perfil->altura}}">
             CM.
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>BUST</strong>   
-            <input id="inpBusto" name="inpBusto" type="text"  value="72">
+            <input id="inpBusto" name="inpBusto" type="text"  value="{{$perfil->busto}}">
             CM.
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>WAIST</strong>
-            <input id="inpCintura" name="inpCintura" type="text"  value="60">
+            <input id="inpCintura" name="inpCintura" type="text"  value="{{$perfil->cintura}}">
             CM.
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>HIPS</strong>         
-            <input id="inpCadera" name="inpCadera" type="text"  value="87">
+            <input id="inpCadera" name="inpCadera" type="text"  value="{{$perfil->cadera}}">
             CM.
            </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>SHOES</strong>            
-            <input id="inpCalzado" name="inpCalzado" type="text"  value="30">
+            <input id="inpCalzado" name="inpCalzado" type="text"  value="{{$perfil->calzado}}">
             CM.
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>EYES</strong>   
-            <input id="inpColorOjos" name="inpColorOjos" type="text"  value="BROWN" class="inp-m">
+            <input id="inpColorOjos" name="inpColorOjos" type="text"  value="{{$perfil->color_ojos}}" class="inp-m">
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>HAIR</strong>  
-            <input id="inpColorCabello" name="inpColorCabello" type="text"  value="DARK BROWN" class="inp-m">
+            <input id="inpColorCabello" name="inpColorCabello" type="text"  value="{{$perfil->color_cabello}}" class="inp-m">
         </p>
     </div>
 </section>

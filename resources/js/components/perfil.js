@@ -1,4 +1,17 @@
+//Instancias 
 const form1 = document.getElementById('form_perfil_fisico');
+const inpAltuta = document.getElementById('inpAltuta');
+const inpBusto = document.getElementById('inpBusto');
+const inpCintura = document.getElementById('inpCintura');
+const inpCadera = document.getElementById('inpCadera');
+const inpCalzado = document.getElementById('inpCalzado');
+const inpColorOjos = document.getElementById('inpColorOjos');
+const inpColorCabello = document.getElementById('inpColorCabello');
+const inpNombre = document.getElementById('inpNombre');
+
+
+//Procesos 
+
 if (form1){
 
     form1.addEventListener("submit", async function(e){
@@ -41,6 +54,106 @@ if (form1){
     });
 } 
 
+
+
+//Proceso individual 
+if(inpAltuta){
+    inpAltuta.addEventListener("focusout", async(event) => {
+        event.preventDefault();
+        //Envio 
+        const ruta = 'http://binarymodel.test/perfil/registrar';
+        //Genero Matriz para los datos de cada formulario
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['inpAltuta'] = inpAltuta.value;
+        const result = await sendAxios(obj, ruta);
+    });
+}
+if(inpBusto){
+    inpBusto.addEventListener("focusout", async(event) => {
+        event.preventDefault();
+        //Envio 
+        const ruta = 'http://binarymodel.test/perfil/registrar';
+        //Genero Matriz para los datos de cada formulario
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['inpBusto'] = inpBusto.value;
+        const result = await sendAxios(obj, ruta);
+    });
+}
+if(inpCintura){
+    inpCintura.addEventListener("focusout", async(event) => {
+        event.preventDefault();
+        //Envio 
+        const ruta = 'http://binarymodel.test/perfil/registrar';
+        //Genero Matriz para los datos de cada formulario
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['inpCintura'] = inpCintura.value;
+        const result = await sendAxios(obj, ruta);
+    });
+}
+if(inpCadera){
+    inpCadera.addEventListener("focusout", async(event) => {
+        event.preventDefault();
+        //Envio 
+        const ruta = 'http://binarymodel.test/perfil/registrar';
+        //Genero Matriz para los datos de cada formulario
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['inpCadera'] = inpCadera.value;
+        const result = await sendAxios(obj, ruta);
+    });
+}
+
+if(inpCalzado){
+    inpCalzado.addEventListener("focusout", async(event) => {
+        event.preventDefault();
+        //Envio 
+        const ruta = 'http://binarymodel.test/perfil/registrar';
+        //Genero Matriz para los datos de cada formulario
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['inpCalzado'] = inpCalzado.value;
+        const result = await sendAxios(obj, ruta);
+    });
+}
+if(inpColorOjos){
+    inpColorOjos.addEventListener("focusout", async(event) => {
+        event.preventDefault();
+        //Envio 
+        const ruta = 'http://binarymodel.test/perfil/registrar';
+        //Genero Matriz para los datos de cada formulario
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['inpColorOjos'] = inpColorOjos.value;
+        const result = await sendAxios(obj, ruta);
+    });
+}
+if(inpColorCabello){
+    inpColorCabello.addEventListener("focusout", async(event) => {
+        event.preventDefault();
+        //Envio 
+        const ruta = 'http://binarymodel.test/perfil/registrar';
+        //Genero Matriz para los datos de cada formulario
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['inpColorCabello'] = inpColorCabello.value;
+        const result = await sendAxios(obj, ruta);
+    });
+}
+if(inpNombre){
+    inpNombre.addEventListener("focusout", async(event) => {
+        event.preventDefault();
+        //Envio 
+        const ruta = 'http://binarymodel.test/perfil/registrar';
+        //Genero Matriz para los datos de cada formulario
+        var obj = {};
+        obj['tipo'] = 'usuario';
+        obj['inpNombre'] = inpNombre.value;
+        const result = await sendAxios(obj, ruta);
+    });
+}
 
 
 
