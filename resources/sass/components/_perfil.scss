@@ -20,6 +20,33 @@ footer {
     color: $gold;
 }
 
+
+.view-perfil{
+    
+    input{
+        border-color: black;
+        width: 40px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+
+    }
+
+    .inp-m{
+        width: 110px !important; 
+    }
+    .inp-title{
+        width: 400px !important;
+        font-size: 2rem; 
+        background-color:transparent;
+    }
+
+}
+
+
 /* Animaciones */
     @keyframes loading {
         0%, 100% {

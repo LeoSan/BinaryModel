@@ -9,36 +9,58 @@
         <img src="{{ asset('images/hero_1.jpg') }}"  alt="Image" class="img-fluid">
     </div>
 
-    <div class="container">
+    <div class="container view-perfil">
         <div class="row align-items-center justify-content-start">
             <div class="col-lg-12">
-                <h1 class="heading text-center mt-5" data-aos="fade">EDGAR CONTI</h1>
+                <h1 class="heading text-center mt-5" data-aos="fade">
+                    <input id="inpNombre" name="inpNombre" type="text" value="EDGAR CONTI" class="inp-title">
+                </h1>
             </div>
         </div>
     </div>
 </div>
 
-<section id="contenedor-medidas" class="row mt-2" data-aos="fade">
+<section id="contenedor-medidas " class="row mt-2 view-perfil" data-aos="fade">
     <div class="custom-lg medidas">
-        <p><strong>HEIGHT</strong>   1,70CM.   </p>
+        <p>
+            <strong>HEIGHT</strong>      
+            <input id="inpAltuta" name="inpAltuta" type="text"  value="1,70">
+            CM.
+        </p>
     </div>
     <div class="custom-lg medidas">
-        <p><strong>BUST</strong>   72 CM.   </p>
+        <p><strong>BUST</strong>   
+            <input id="inpBusto" name="inpBusto" type="text"  value="72">
+            CM.
+        </p>
     </div>
     <div class="custom-lg medidas">
-        <p><strong>WAIST</strong>   60 CM.   </p>
+        <p><strong>WAIST</strong>
+            <input id="inpCintura" name="inpCintura" type="text"  value="60">
+            CM.
+        </p>
     </div>
     <div class="custom-lg medidas">
-        <p><strong>HIPS</strong>   87 CM.   </p>
+        <p><strong>HIPS</strong>         
+            <input id="inpCadera" name="inpCadera" type="text"  value="87">
+            CM.
+           </p>
     </div>
     <div class="custom-lg medidas">
-        <p><strong>SHOES</strong>   3 MX.   </p>
+        <p><strong>SHOES</strong>            
+            <input id="inpCalzado" name="inpCalzado" type="text"  value="30">
+            CM.
+        </p>
     </div>
     <div class="custom-lg medidas">
-        <p><strong>EYES</strong>   BROWN.   </p>
+        <p><strong>EYES</strong>   
+            <input id="inpColorOjos" name="inpColorOjos" type="text"  value="BROWN" class="inp-m">
+        </p>
     </div>
     <div class="custom-lg medidas">
-        <p><strong>HAIR</strong>  DARK BROWN   </p>
+        <p><strong>HAIR</strong>  
+            <input id="inpColorCabello" name="inpColorCabello" type="text"  value="DARK BROWN" class="inp-m">
+        </p>
     </div>
 </section>
 
