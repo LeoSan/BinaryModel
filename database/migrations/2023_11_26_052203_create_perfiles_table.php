@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('color_ojos', '30')->comment('Campo que indica el color de ojos');
             $table->string('color_cabello', '30')->comment('Campo que indica el color de ojos');
             $table->longText('biografia')->nullable()->default(null)->comment('Campo biografia');
-            $table->boolean('check_publicar')->comment('campo que indica si desea que su perfil pueda ser publicado');
+            $table->boolean('check_publicar')->nullable()->default(false)->comment('campo que indica si desea que su perfil pueda ser publicado');
 
 
             $table->timestamps();
