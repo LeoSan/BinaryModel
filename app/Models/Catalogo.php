@@ -16,4 +16,5 @@ class Catalogo extends Model
         'nombre',
         'descripcion'
     ];
+
 }

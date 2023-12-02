@@ -41,7 +41,7 @@ class CatalogosTableSeeder extends Seeder
         Catalogo::updateOrCreate([
             'codigo' => 'FASHION_MODEL',
             'codigo_padre'=> 'IN FASHION',
-            'nombre'=> 'FASHION_MODEL',
+            'nombre'=> 'FASHION MODEL',
             'descripcion'=> 'FASHION_MODEL'
         ]);
 

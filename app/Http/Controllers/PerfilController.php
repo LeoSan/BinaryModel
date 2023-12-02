@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Response};
 
-use App\Models\{Perfil, User};
+use App\Models\{Perfil, User, Catalogo, Marca, Social};
 
 class PerfilController extends Controller
 {
@@ -32,9 +32,11 @@ class PerfilController extends Controller
     
     public function showVistaPrevia(Request $request)
     {
-        $perfil = Perfil::where('usuario_id', 6)->first();
+        $perfil           = Perfil::where('usuario_id', 6)->first();
+        $catalogo_fashion = Catalogo::where('codigo_padre', 'IN FASHION')->get();
+        $catalogo_sport   = Catalogo::where('codigo_padre', 'IN SPORTS')->get();
 
-        return view('perfiles.vista-previa',compact('perfil'));
+        return view('perfiles.vista-previa',compact('perfil', 'catalogo_fashion', 'catalogo_sport'));
     }
 
     public function storePerfil(Request $request)
@@ -55,6 +57,12 @@ class PerfilController extends Controller
             break;
             case 'usuario':
                 $resp = $this->procesoStoreUsuario($request);
+            break;
+            case 'marca':
+                $resp = $this->procesoStoreMarca($request);
+            break;
+            case 'social':
+                $resp = $this->procesoStoreSocial($request);
             break;
             default:
                 $resp = null; 
@@ -81,20 +89,8 @@ class PerfilController extends Controller
                     'color_ojos'=> $request->input('color_ojos'),
                     'color_cabello'=> $request->input('color_cabello')
                 ]);
-            
-            //envio respuesta al JS 
-            if (!$is_create){
-                return Response::json([
-                    'message'   => $this->message_error,
-                    'estatus'   =>  203,//bad
-                ], 203);
-            }else{
-                return Response::json([
-                    'message' => $this->message_success,
-                    'id'   => $is_create->id ,
-                    'estatus'   =>  201,//Good
-                ], 201);
-            }
+
+            return  $this->validaStore($is_create);            //envio respuesta al JS 
         }catch(\Exception $e) {
             $error_exception = "Error try exception";
             return Response::json([
@@ -127,27 +123,31 @@ class PerfilController extends Controller
     public function procesoStoreVista(Request $request)
     {
 
-        $perfil = Perfil::where('usuario_id', 6)->first();;
-        $val_altura = $request->input('inpAltuta');
-        $val_busto = $request->input('inpBusto');
+        $perfil      = Perfil::where('usuario_id', 6)->first();;
+        $val_altura  = $request->input('inpAltuta');
+        $val_busto   = $request->input('inpBusto');
         $val_cintura = $request->input('inpCintura');
-        $val_cadera = $request->input('inpCadera');
-        $val_calzado = $request->input('inpCalzado');
-        $val_color_ojos = $request->input('inpColorOjos');
-        $val_color_cabello = $request->input('inpColorCabello');
+        $val_cadera  = $request->input('inpCadera');
+        $val_calzado        = $request->input('inpCalzado');
+        $val_color_ojos     = $request->input('inpColorOjos');
+        $val_color_cabello  = $request->input('inpColorCabello');
+        $val_biografia      = $request->input('inpBiografia');
+        $val_check_publicar = $request->input('checkPublicar');
 
         try {
             //Inserto valores
             $is_create = Perfil::updateOrCreate([
                     'usuario_id'=> 6,
                 ], [
-                    'altura'       => isset($val_altura)? $request->input('inpAltuta'):$perfil->altura,
-                    'busto'        => isset($val_busto)? $request->input('inpBusto'):$perfil->busto,
-                    'cintura'      => isset($val_cintura)? $request->input('inpCintura'):$perfil->cintura,
-                    'cadera'       => isset($val_cadera)? $request->input('inpCadera'):$perfil->cadera,
-                    'calzado'      => isset($val_calzado)? $request->input('inpCalzado'):$perfil->calzado,
-                    'color_ojos'   => isset($val_color_ojos)? $request->input('inpColorOjos'):$perfil->color_ojos,
-                    'color_cabello'=> isset($val_color_cabello)? $request->input('inpColorCabello'):$perfil->color_cabello,
+                    'altura'         => isset($val_altura)? $request->input('inpAltuta'):$perfil->altura,
+                    'busto'          => isset($val_busto)? $request->input('inpBusto'):$perfil->busto,
+                    'cintura'        => isset($val_cintura)? $request->input('inpCintura'):$perfil->cintura,
+                    'cadera'         => isset($val_cadera)? $request->input('inpCadera'):$perfil->cadera,
+                    'calzado'        => isset($val_calzado)? $request->input('inpCalzado'):$perfil->calzado,
+                    'color_ojos'     => isset($val_color_ojos)? $request->input('inpColorOjos'):$perfil->color_ojos,
+                    'color_cabello'  => isset($val_color_cabello)? $request->input('inpColorCabello'):$perfil->color_cabello,
+                    'biografia'      => isset($val_biografia)? $request->input('inpBiografia'):$perfil->biografia,
+                    'check_publicar' => isset($val_check_publicar)? $request->input('checkPublicar'):$perfil->check_publicar,
                 ]);
     
             return  $this->validaStore($is_create);            //envio respuesta al JS 
@@ -161,6 +161,58 @@ class PerfilController extends Controller
         }
 
     }
+    public function procesoStoreSocial(Request $request)
+    {
+        $perfil = Perfil::where('id', $request->input('perfil_id'))->first();
+
+        try {
+            $is_create = Social::updateOrCreate([
+                'usuario_id'=> $perfil->usuario->id,
+                'perfil_id'=> $perfil->id,
+                'nombre'=> $request->input('nombre'),
+            ], [
+                'usuario_id' => $perfil->usuario->id,
+                'perfil_id'  => $perfil->id,
+                'nombre'     => $request->input('nombre'),
+                'url'        => $request->input('value'),
+            ]);
+            return  $this->validaStore($is_create);
+
+        }catch(\Exception $e) {
+            $error_exception = "Error try exception";
+            return Response::json([
+                'message' => $this->message_error,
+                'estatus'   =>  203,//bad
+            ], 203);
+        }
+    }
+    public function procesoStoreMarca(Request $request)
+    {
+        $perfil = Perfil::where('id', $request->input('perfil_id'))->first();
+
+        try {
+            if($request->input('checked') == "true" ){
+                $is_marca = Marca::Create([
+                    'usuario_id'    =>$perfil->usuario->id,
+                    'perfil_id'     =>$request->input('perfil_id'),
+                    'catalogo_id'   =>$request->input('id'),
+                    'catalogo_padre'=>$request->input('padre')
+                ]);
+            }else{
+                $is_marca = Marca::where('perfil_id', $request->input('perfil_id'))->where('catalogo_id',$request->input('id'))->first();
+                $is_marca->delete();
+            }
+            return  $this->validaStore($is_marca);
+
+        }catch(\Exception $e) {
+            $error_exception = "Error try exception";
+            return Response::json([
+                'message' => $this->message_error,
+                'estatus'   =>  203,//bad
+            ], 203);
+        }
+    }
+
     public function validaStore($is_create)
     {
         if (!$is_create){

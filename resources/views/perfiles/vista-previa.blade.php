@@ -64,11 +64,98 @@
     </div>
 </section>
 
-<section id="bio">
+<section id="bio" class="view-perfil">
     <div class="container contenedor-bio">
         <h1 class="titulos text-center mb-3">BIO</h1>
         <div class="text-bio text-center" data-aos="fade">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel ultrices eros. Nullam tempus faucibus ex, vitae sodales tortor ultricies nec. Duis mattis leo nec mattis lacinia. Donec felis mauris, eleifend lacinia porta et, auctor vitae urna. Maecenas laoreet cursus iaculis. Vivamus commodo et mauris non semper. Donec iaculis lacus non aliquet ultricies. Ut vitae mauris auctor leo iaculis molestie. Duis vel lectus vitae velit consequat mollis.</p>
+            <textarea id="inpBiografia" name="inpBiografia" class="inp-text" placeholder="Ingrese su biografía"> {{  $perfil->biografia }}</textarea>
+        </div>
+    </div>
+</section>
+
+<section id="Caracteristicas" class="gallery">
+
+    <div class="container contenedor-bio">
+
+        <h1 class="titulos text-center mb-3">HELP BRANDS FIND YOU</h1>
+
+        <div class="text-bio text-center">
+
+            <p>We invite you to embody the epitome of success in the modeling world. Discover below a range of options designed to capture the essence of your unique personality, creating a compelling profile that will attract top-tier brands. Let this be your passport to becoming a sought-after model, as we tailor your image to resonate with the industry's finest.</p>
+
+        </div>
+
+
+        <div id="cheks-caracteristicas">
+
+            <h2 class="mt-5 mb-4">WHAT DO YOU LIKE?</h2>
+
+            <h3 class="mt-4 mb-4">IN FASHION</h3>
+            
+            @foreach ($catalogo_fashion as $list )
+                <div class="form-check form-switch d-inline-block">
+                    <input class="form-check-input check_marca" data-perfil="{{$perfil->id}}" data-id="{{$list->id}}" data-padre="{{$list->codigo_padre}}" type="checkbox" role="switch" id="{{$list->codigo}}">
+                    <label class="form-check-label" for="{{$list->codigo}}">{{$list->nombre}}</label>
+                </div>
+            @endforeach
+
+            <hr>
+
+            <h3 class="mt-4 mb-4">IN SPORTS</h3>
+            @foreach ($catalogo_sport as $list )
+                <div class="form-check form-switch d-inline-block">
+                    <input class="form-check-input check_marca" type="checkbox" data-perfil="{{$perfil->id}}" data-id="{{$list->id}}" data-padre="{{$list->codigo_padre}}" role="switch" id="{{$list->codigo}}">
+                    <label class="form-check-label" for="{{$list->codigo}}">{{$list->nombre}}</label>
+                </div>
+            @endforeach
+
+        </div>
+</section>
+
+
+<hr>
+
+<section id="redesSociales" class="gallery mb-5">
+
+    <div class="container contenedor-bio">
+
+        <h1 class="titulos text-center mb-3">YOUR SOCIAL NETWORKS</h1>
+
+        <div class="offset-0 col-12 offset-md-3 col-md-6 mt-5">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <img src="{{ asset('images/icon/instagram.png') }}"  class="icons">
+                </div>
+                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Instagram" placeholder="Instagram">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <img src="{{ asset('images/icon/tiktok.png') }}"  class="icons">
+                </div>
+                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Tiktok" placeholder="Tiktok">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <img src="{{ asset('images/icon/facebook.png') }}"  class="icons">
+                </div>
+                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Facebook" placeholder="Facebook">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <img src="{{ asset('images/icon/twitter.png') }}"  class="icons">
+                </div>
+                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Twitter" placeholder="Twitter">
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="publicar" class="gallery mb-5">
+    <div class="container">
+        <div class="form-check form-switch d-inline-block text-center">
+            <input class="form-check-input btn-publicar" type="checkbox" role="switch" id="checkPublicar">
+            <label class="form-check-label label-publicar" for="publicar">PUBLISH YOUR PROFILE</label>
         </div>
     </div>
 </section>

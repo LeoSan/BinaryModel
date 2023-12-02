@@ -30,4 +30,8 @@ class Perfil extends Model
     public function usuario(){
         return $this->belongsTo(User::class,'usuario_id', 'id');
     }
+
+    public function marca(){
+        return $this->hasMany(Marca::class,'perfil_id');
+    }
 }

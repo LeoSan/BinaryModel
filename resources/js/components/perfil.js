@@ -1,4 +1,6 @@
 //Instancias 
+const ruta = 'http://binarymodel.test/perfil/registrar';
+
 const form1 = document.getElementById('form_perfil_fisico');
 const inpAltuta = document.getElementById('inpAltuta');
 const inpBusto = document.getElementById('inpBusto');
@@ -8,7 +10,8 @@ const inpCalzado = document.getElementById('inpCalzado');
 const inpColorOjos = document.getElementById('inpColorOjos');
 const inpColorCabello = document.getElementById('inpColorCabello');
 const inpNombre = document.getElementById('inpNombre');
-
+const inpBiografia = document.getElementById('inpBiografia');
+const checkPublicar = document.getElementById('checkPublicar');
 
 //Procesos 
 
@@ -20,7 +23,7 @@ if (form1){
         var obj = {};
         var formData1 = new FormData(form1);
     
-        //Genero Matriz para los datos de cada formulario
+        
         for (var key of formData1.keys()) {
             obj[key] = formData1.get(key);
         }
@@ -57,15 +60,13 @@ if (form1){
     });
 } 
 
-
-
 //Proceso individual 
 if(inpAltuta){
     inpAltuta.addEventListener("focusout", async(event) => {
         event.preventDefault();
         //Envio 
-        const ruta = 'http://binarymodel.test/perfil/registrar';
-        //Genero Matriz para los datos de cada formulario
+       
+        
         var obj = {};
         obj['tipo'] = 'vista';
         obj['inpAltuta'] = inpAltuta.value;
@@ -75,9 +76,7 @@ if(inpAltuta){
 if(inpBusto){
     inpBusto.addEventListener("focusout", async(event) => {
         event.preventDefault();
-        //Envio 
-        const ruta = 'http://binarymodel.test/perfil/registrar';
-        //Genero Matriz para los datos de cada formulario
+        
         var obj = {};
         obj['tipo'] = 'vista';
         obj['inpBusto'] = inpBusto.value;
@@ -87,9 +86,7 @@ if(inpBusto){
 if(inpCintura){
     inpCintura.addEventListener("focusout", async(event) => {
         event.preventDefault();
-        //Envio 
-        const ruta = 'http://binarymodel.test/perfil/registrar';
-        //Genero Matriz para los datos de cada formulario
+        
         var obj = {};
         obj['tipo'] = 'vista';
         obj['inpCintura'] = inpCintura.value;
@@ -99,22 +96,17 @@ if(inpCintura){
 if(inpCadera){
     inpCadera.addEventListener("focusout", async(event) => {
         event.preventDefault();
-        //Envio 
-        const ruta = 'http://binarymodel.test/perfil/registrar';
-        //Genero Matriz para los datos de cada formulario
+        
         var obj = {};
         obj['tipo'] = 'vista';
         obj['inpCadera'] = inpCadera.value;
         const result = await sendAxios(obj, ruta);
     });
 }
-
 if(inpCalzado){
     inpCalzado.addEventListener("focusout", async(event) => {
         event.preventDefault();
-        //Envio 
-        const ruta = 'http://binarymodel.test/perfil/registrar';
-        //Genero Matriz para los datos de cada formulario
+        
         var obj = {};
         obj['tipo'] = 'vista';
         obj['inpCalzado'] = inpCalzado.value;
@@ -124,9 +116,7 @@ if(inpCalzado){
 if(inpColorOjos){
     inpColorOjos.addEventListener("focusout", async(event) => {
         event.preventDefault();
-        //Envio 
-        const ruta = 'http://binarymodel.test/perfil/registrar';
-        //Genero Matriz para los datos de cada formulario
+        
         var obj = {};
         obj['tipo'] = 'vista';
         obj['inpColorOjos'] = inpColorOjos.value;
@@ -136,9 +126,7 @@ if(inpColorOjos){
 if(inpColorCabello){
     inpColorCabello.addEventListener("focusout", async(event) => {
         event.preventDefault();
-        //Envio 
-        const ruta = 'http://binarymodel.test/perfil/registrar';
-        //Genero Matriz para los datos de cada formulario
+        
         var obj = {};
         obj['tipo'] = 'vista';
         obj['inpColorCabello'] = inpColorCabello.value;
@@ -148,15 +136,70 @@ if(inpColorCabello){
 if(inpNombre){
     inpNombre.addEventListener("focusout", async(event) => {
         event.preventDefault();
-        //Envio 
-        const ruta = 'http://binarymodel.test/perfil/registrar';
-        //Genero Matriz para los datos de cada formulario
+        
         var obj = {};
         obj['tipo'] = 'usuario';
         obj['inpNombre'] = inpNombre.value;
         const result = await sendAxios(obj, ruta);
     });
 }
+if(inpBiografia){
+    inpBiografia.addEventListener("focusout", async(event) => {
+        event.preventDefault();
+        
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['inpBiografia'] = inpBiografia.value;
+        const result = await sendAxios(obj, ruta);
+    });
+}
+if(checkPublicar){
+    checkPublicar.addEventListener("click", async(event) => {
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['checkPublicar'] = (event.target.checked)?1:0;
+        const result = await sendAxios(obj, ruta);
+    });
+}
+
+
+//Proceso dinámico para el catálogo 
+document.querySelectorAll(".check_marca").forEach( async(el) => {
+
+    el.addEventListener("click", async(e) => {
+        const id = e.target.getAttribute("data-id");
+        const padre = e.target.getAttribute("data-padre");
+        const perfil_id = e.target.getAttribute("data-perfil");
+
+        var obj = {};
+        obj['tipo'] = 'marca';
+        obj['id'] = id;
+        obj['padre'] = padre;
+        obj['perfil_id'] = perfil_id;
+        obj['checked'] = e.target.checked;
+
+        const result = await sendAxios(obj, ruta);
+    });
+  
+});
+
+document.querySelectorAll(".inputRedes").forEach( async(el) => {
+
+    el.addEventListener("focusout", async(e) => {
+        const nombre = e.target.getAttribute("data-nombre");
+        const perfil_id = e.target.getAttribute("data-perfil");
+
+        var obj = {};
+        obj['tipo']      = 'social';
+        obj['nombre']    = nombre;
+        obj['perfil_id'] = perfil_id;
+        obj['value']     = (e.target.value.length > 0)?e.target.value:'null';
+        obj['activo']    = (e.target.value.length > 0)?true:false;
+
+        const result     = await sendAxios(obj, ruta);
+    });
+  
+});
 
 
 

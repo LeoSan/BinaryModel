@@ -18,9 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id')->comment('Campo FK relacionado con la tabla usuario');
             $table->unsignedBigInteger('perfil_id')->comment('Campo FK relacionado con la tabla perfiles');
             $table->string('nombre')->comment('Campo que indica el nombre de la red social ');
-            $table->string('url')->comment('Campo que indica la direccion web de la red social');
-            $table->boolean('activo')->default(true)->comment('campo que indica esta activo');
-
+            $table->string('url')->nullable()->comment('Campo que indica la direccion web de la red social');
 
             $table->timestamps();
             //Relaciones
