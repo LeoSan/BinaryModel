@@ -92,20 +92,20 @@
 
             <h3 class="mt-4 mb-4">IN FASHION</h3>
             
-            @foreach ($catalogo_fashion as $list )
+            @foreach ($catalogo_fashion as $key=> $list )
                 <div class="form-check form-switch d-inline-block">
-                    <input class="form-check-input check_marca" data-perfil="{{$perfil->id}}" data-id="{{$list->id}}" data-padre="{{$list->codigo_padre}}" type="checkbox" role="switch" id="{{$list->codigo}}">
-                    <label class="form-check-label" for="{{$list->codigo}}">{{$list->nombre}}</label>
+                    <input class="form-check-input check_marca" type="checkbox" role="switch" id="{{ $catalogo_fashion[$key]['codigo'] }}" name="{{$catalogo_fashion[$key]['codigo']}}" data-perfil="{{$perfil->id}}" data-id="{{$catalogo_fashion[$key]['id']}}" data-padre="{{$catalogo_fashion[$key]['codigo_padre'] }}"   @checked(old($catalogo_fashion[$key]['codigo'], $catalogo_fashion[$key]['check'] ))  />
+                    <label class="form-check-label" for="{{$catalogo_fashion[$key]['codigo']}}">{{$catalogo_fashion[$key]['nombre']}}</label>
                 </div>
             @endforeach
 
             <hr>
 
             <h3 class="mt-4 mb-4">IN SPORTS</h3>
-            @foreach ($catalogo_sport as $list )
+            @foreach ($catalogo_sport as $key=> $list )
                 <div class="form-check form-switch d-inline-block">
-                    <input class="form-check-input check_marca" type="checkbox" data-perfil="{{$perfil->id}}" data-id="{{$list->id}}" data-padre="{{$list->codigo_padre}}" role="switch" id="{{$list->codigo}}">
-                    <label class="form-check-label" for="{{$list->codigo}}">{{$list->nombre}}</label>
+                    <input class="form-check-input check_marca" type="checkbox" role="switch" id="{{ $catalogo_sport[$key]['codigo'] }}" name="{{$catalogo_sport[$key]['codigo']}}" data-perfil="{{$perfil->id}}" data-id="{{$catalogo_sport[$key]['id']}}" data-padre="{{$catalogo_sport[$key]['codigo_padre'] }}"   @checked(old($catalogo_sport[$key]['codigo'], $catalogo_sport[$key]['check'] ))  />
+                    <label class="form-check-label" for="{{$catalogo_sport[$key]['codigo']}}">{{$catalogo_sport[$key]['nombre']}}</label>
                 </div>
             @endforeach
 
@@ -126,25 +126,25 @@
                 <div class="input-group-prepend">
                     <img src="{{ asset('images/icon/instagram.png') }}"  class="icons">
                 </div>
-                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Instagram" placeholder="Instagram">
+                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Instagram" placeholder="Instagram" value="{{$social['Instagram'][0]}}" />
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <img src="{{ asset('images/icon/tiktok.png') }}"  class="icons">
                 </div>
-                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Tiktok" placeholder="Tiktok">
+                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Tiktok" placeholder="Tiktok" value="{{$social['Tiktok'][0]}}" />
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <img src="{{ asset('images/icon/facebook.png') }}"  class="icons">
                 </div>
-                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Facebook" placeholder="Facebook">
+                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Facebook" placeholder="Facebook" value="{{$social['Facebook'][0]}}" />
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <img src="{{ asset('images/icon/twitter.png') }}"  class="icons">
                 </div>
-                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Twitter" placeholder="Twitter">
+                <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->id}}" data-nombre="Twitter" placeholder="Twitter" value="{{$social['Twitter'][0]}}" />
             </div>
         </div>
     </div>
@@ -154,7 +154,7 @@
 <section id="publicar" class="gallery mb-5">
     <div class="container">
         <div class="form-check form-switch d-inline-block text-center">
-            <input class="form-check-input btn-publicar" type="checkbox" role="switch" id="checkPublicar">
+            <input class="form-check-input btn-publicar" type="checkbox" role="switch" id="checkPublicar"  @checked(old('checkPublicar', $perfil->check_publicar))>
             <label class="form-check-label label-publicar" for="publicar">PUBLISH YOUR PROFILE</label>
         </div>
     </div>

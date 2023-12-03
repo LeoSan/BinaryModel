@@ -34,4 +34,10 @@ class Perfil extends Model
     public function marca(){
         return $this->hasMany(Marca::class,'perfil_id');
     }
+    public function social(){
+        return $this->hasMany(Social::class,'perfil_id');
+    }
+
+
+
 }

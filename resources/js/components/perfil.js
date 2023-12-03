@@ -193,7 +193,7 @@ document.querySelectorAll(".inputRedes").forEach( async(el) => {
         obj['tipo']      = 'social';
         obj['nombre']    = nombre;
         obj['perfil_id'] = perfil_id;
-        obj['value']     = (e.target.value.length > 0)?e.target.value:'null';
+        obj['value']     = (e.target.value.length > 0)?e.target.value:'Sin asignar';
         obj['activo']    = (e.target.value.length > 0)?true:false;
 
         const result     = await sendAxios(obj, ruta);

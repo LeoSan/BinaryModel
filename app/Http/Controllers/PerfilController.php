@@ -17,8 +17,6 @@ class PerfilController extends Controller
     {
 
     }
-
-
     public function index(Request $request)
     {
         //return view('denuncias.index');
@@ -33,10 +31,21 @@ class PerfilController extends Controller
     public function showVistaPrevia(Request $request)
     {
         $perfil           = Perfil::where('usuario_id', 6)->first();
-        $catalogo_fashion = Catalogo::where('codigo_padre', 'IN FASHION')->get();
-        $catalogo_sport   = Catalogo::where('codigo_padre', 'IN SPORTS')->get();
+        $catalogo_fashion = Catalogo::where('codigo_padre', 'IN FASHION')->get()->toArray();
+        $catalogo_sport   = Catalogo::where('codigo_padre', 'IN SPORTS')->get()->toArray();
 
-        return view('perfiles.vista-previa',compact('perfil', 'catalogo_fashion', 'catalogo_sport'));
+        $vacio[0]='Sin asignar';
+
+        $social['Instagram'] = empty($perfil->social->where('nombre', 'Instagram')->pluck('url')->toArray())? $vacio :$perfil->social->where('nombre', 'Instagram')->pluck('url')->toArray();
+        $social['Tiktok']    = empty($perfil->social->where('nombre', 'Tiktok')->pluck('url')->toArray())?    $vacio :$perfil->social->where('nombre', 'Tiktok')->pluck('url')->toArray();
+        $social['Facebook']  = empty($perfil->social->where('nombre', 'Facebook')->pluck('url')->toArray())?  $vacio :$perfil->social->where('nombre', 'Facebook')->pluck('url')->toArray();
+        $social['Twitter']   = empty($perfil->social->where('nombre', 'Twitter')->pluck('url')->toArray())?   $vacio :$perfil->social->where('nombre', 'Twitter')->pluck('url')->toArray();
+
+        //Valido si tiene alguna marca en el perfil 
+        $catalogo_sport = $this->validaPerfilMarca($catalogo_sport, $perfil);
+        $catalogo_fashion = $this->validaPerfilMarca($catalogo_fashion, $perfil);
+
+        return view('perfiles.vista-previa',compact('perfil', 'catalogo_fashion', 'catalogo_sport', 'social'));
     }
 
     public function storePerfil(Request $request)
@@ -227,6 +236,18 @@ class PerfilController extends Controller
                 'estatus'   =>  201,//Good
             ], 201);
         }
+    }
+    public function validaPerfilMarca($catalogo, $perfil)
+    {
+        foreach ($catalogo as $key => $value) {
+            $valida = $perfil->marca->where('catalogo_id', $value['id'])->value('catalogo_id'); 
+            if ($valida > 0){
+                $catalogo[$key][ 'check'] = true;
+            }else{
+                $catalogo[$key][ 'check'] = false;
+            }
+        }
+        return $catalogo; 
     }
 
 
