@@ -6,7 +6,10 @@
 <div class="hero overlay">
 
     <div class="img-bg rellax">
-        <img src="{{ asset('images/hero_1.jpg') }}"  alt="Image" class="img-fluid">
+        <img src="{{ asset('images/Prueba.jpg') }}"  alt="Image" class="img-fluid">
+        <div class="update-icon">
+            <img src="{{ asset('images/icon/uploadImage.png') }}" class="img-upload" data-bs-toggle="modal" data-bs-target="#exampleModal" />
+        </div>
     </div>
 
     <div class="container view-perfil">
@@ -160,5 +163,9 @@
     </div>
 </section>
         
+
+@include('perfiles.partials.modal')
+
+
             
 @endsection
