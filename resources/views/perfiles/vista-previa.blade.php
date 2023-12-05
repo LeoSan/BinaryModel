@@ -27,49 +27,49 @@
     <div class="custom-lg medidas">
         <p>
             <strong>HEIGHT</strong>      
-            <input id="inpAltuta" name="inpAltuta" type="text" onkeypress="validaStringTeclado(this, 'float')"  
+            <input id="inpAltuta" name="inpAltuta" type="text" onkeyup="validaStringTeclado(this, 'float')"  maxlength="4"
                     value="{{$perfil ? $perfil->altura : '0.00'}}" />
             CM.
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>BUST</strong>   
-            <input id="inpBusto" name="inpBusto" type="text"
+            <input id="inpBusto" name="inpBusto" type="text" onkeyup="validaStringTeclado(this, 'float')" maxlength="4"
                     value="{{$perfil ? $perfil->busto: '0.00'}}"  />
             CM.
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>WAIST</strong>
-            <input id="inpCintura" name="inpCintura" type="text"  
+            <input id="inpCintura" name="inpCintura" type="text" onkeyup="validaStringTeclado(this, 'float')" maxlength="4"
                     value="{{$perfil ? $perfil->cintura : '0.00'}}"/>
             CM.
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>HIPS</strong>         
-            <input id="inpCadera" name="inpCadera" type="text"   
+            <input id="inpCadera" name="inpCadera" type="text" onkeyup="validaStringTeclado(this, 'float')" maxlength="4"
                     value="{{$perfil ? $perfil->cadera : '0.00'}}"/>
             CM.
            </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>SHOES</strong>            
-            <input id="inpCalzado" name="inpCalzado" type="text" 
+            <input id="inpCalzado" name="inpCalzado" type="text" onkeyup="validaStringTeclado(this, 'float')" maxlength="4"
                     value="{{$perfil ? $perfil->calzado : '0.00'}}" />
             CM.
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>EYES</strong>   
-            <input id="inpColorOjos" name="inpColorOjos" type="text"   class="inp-m" 
+            <input id="inpColorOjos" name="inpColorOjos" type="text" class="inp-m" onkeydown="validaStringTeclado(this, 'letras')"
                     value="{{$perfil ? $perfil->color_ojos : 'Your color'}}"
             />
         </p>
     </div>
     <div class="custom-lg medidas">
         <p><strong>HAIR</strong>  
-            <input id="inpColorCabello" name="inpColorCabello" type="text"   class="inp-m" 
+            <input id="inpColorCabello" name="inpColorCabello" type="text" class="inp-m" onkeydown="validaStringTeclado(this, 'letras')" 
                     value="{{$perfil ? $perfil->color_cabello : 'Your color'}}"/>
         </p>
     </div>
@@ -172,7 +172,7 @@
 </section>
         
 
-@include('perfiles.partials.modal')
+@include('perfiles.partials.modal-file-perfil-hero')
 
 
             
