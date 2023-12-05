@@ -47,8 +47,9 @@ window.sendAxios = async (datos, ruta)=>{
 
 
 
-window.metodoTeclado = (event)=>{
+window.validaStringTeclado = (event, tipo_validacion)=>{
     console.log(event.target);
+    console.log(tipo_validacion);
 }
 
 

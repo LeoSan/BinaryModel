@@ -138,7 +138,7 @@ if(inpNombre){
         event.preventDefault();
         
         var obj = {};
-        obj['tipo'] = 'usuario';
+        obj['tipo'] = 'vista';
         obj['inpNombre'] = inpNombre.value;
         const result = await sendAxios(obj, ruta);
     });
@@ -169,13 +169,13 @@ document.querySelectorAll(".check_marca").forEach( async(el) => {
     el.addEventListener("click", async(e) => {
         const id = e.target.getAttribute("data-id");
         const padre = e.target.getAttribute("data-padre");
-        const perfil_id = e.target.getAttribute("data-perfil");
+        const user = e.target.getAttribute("data-user");
 
         var obj = {};
-        obj['tipo'] = 'marca';
-        obj['id'] = id;
-        obj['padre'] = padre;
-        obj['perfil_id'] = perfil_id;
+        obj['tipo']    = 'marca';
+        obj['id']      = id;
+        obj['padre']   = padre;
+        obj['user']    = user;
         obj['checked'] = e.target.checked;
 
         const result = await sendAxios(obj, ruta);
