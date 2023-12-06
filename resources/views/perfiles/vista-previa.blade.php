@@ -4,9 +4,8 @@
 @include('perfiles.partials.tabs', ['form'=>'', 'preView'=>'active' ] )
 
 <div class="hero overlay">
-
     <div class="img-bg rellax">
-        <img src="{{ asset('images/Prueba.jpg') }}"  alt="Image" class="img-fluid">
+        <img id="img_hero" src="{{ ($url_hero) }}"  alt="Image" class="img-fluid"  width="1100px" />
         <div class="update-icon">
             <img src="{{ asset('images/icon/uploadImage.png') }}" class="img-upload" data-bs-toggle="modal" data-bs-target="#exampleModal" />
         </div>

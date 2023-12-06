@@ -14,7 +14,6 @@ class File extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d',
         'updated_at' => 'datetime:Y-m-d',
-        'deleted_at' => 'datetime:Y-m-d',
     ];
     protected $appends = [];
 
@@ -35,7 +34,5 @@ class File extends Model
         return $this->belongsTo(User::class,'usuario_id', 'id');
     }
     
-    public function perfil(){
-        return $this->belongsTo(Perfil::class,'perfil_id', 'id');
-    }
+
 }

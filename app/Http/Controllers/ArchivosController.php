@@ -6,41 +6,35 @@ use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+//use Illuminate\Support\Facades\Validator;
+
 
 class ArchivosController extends Controller
 {
-    public static function storeFile(Request $request, $codigo, $perfil, $tipo)
+    public static function storeFile(Request $request, $codigo, $user)
     {
+                
         $archivo = $request->file('documento_archivo_'. $codigo);
         $mimes   = $request->input('accept_'. $codigo);
+        $tipo_imagen   = $request->input('tipo_imagen');
+        
         if ($archivo){
-            // Guardar el archivo en la carpeta 'archivos' dentro de la carpeta 'storage'
-            $rules = [
-                "documento_archivo_$codigo" => "mimes:".$mimes, // Agrega las extensiones permitidas aquí
-            ];
-            $validator = Validator::make($request->all(), $rules);
-            if ( ! $validator->fails()) {
-
-                $rutaArchivo = $archivo->store("archivos/$perfil->id/");
+                $rutaArchivo = $archivo->store("public/archivos/$user->id");
                 $pesoArchivo = round($archivo->getSize() / 1024, 2);
-                // Guardar el registro en la base de datos
                 $datosArchivo = [
-                    'perfil_id' => $perfil->id,
-                    'ruta' => $rutaArchivo,
-                    'nombre' => $archivo->getClientOriginalName(),
-                    'extension' => $archivo->extension(),
-                    'peso' => $pesoArchivo . ' KB',
-                    'tipo' => $tipo,
+                    'usuario_id' => $user->id,
+                    'ruta'       => $rutaArchivo,
+                    'nombre'     => $archivo->getClientOriginalName(),
+                    'extension'  => $archivo->extension(),
+                    'peso'       => $pesoArchivo . ' KB',
+                    'tipo'       => $tipo_imagen,
                 ];
-
-                $documento = File::updateOrCreate([
-                    'perfil_id'  => $perfil->id,
-                    'usuario_id' => $perfil->usuario->id,
+                $file = File::updateOrCreate([
+                    'usuario_id' => $user->id,
+                    'tipo' => $tipo_imagen,
                 ], $datosArchivo);
-
-                return $documento;
-            }
+                return $file;
+        }else{
             return false;
         }
     }

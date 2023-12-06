@@ -37,9 +37,6 @@ class Perfil extends Model
     public function social(){
         return $this->hasMany(Social::class,'perfil_id');
     }
-    public function fotos(){
-        return $this->hasMany(File::class,'perfil_id');
-    }
 
 
 

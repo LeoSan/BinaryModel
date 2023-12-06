@@ -29,7 +29,7 @@ window.sendAxios = async (datos, ruta)=>{
     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     let config = {
         headers: {
-            "Content-Type": "application/json multipart/form-data",
+            'Content-Type': 'multipart/form-data', 
             "Accept": "application/json, text-plain, */*",
             "X-Requested-With": "XMLHttpRequest",
             "X-CSRF-TOKEN": token
@@ -50,6 +50,20 @@ window.validaStringTeclado = (event, tipo_validacion)=>{
     metodosValidacionPorTeclado(event, tipo_validacion);
 }
 
+window.pintaRespuesta = (resp)=>{
+
+    if (resp.data.estatus == 201){
+        document.getElementById('msgSuccess').classList.remove('d-none'); 
+        document.getElementById('msgError').classList.add('d-none');
+        document.getElementById('msgTextoSuccess').innerText= resp.data.message;
+
+    }else{
+        document.getElementById('msgError').classList.remove('d-none'); 
+        document.getElementById('msgSuccess').classList.add('d-none');
+        document.getElementById('msgTextoError').innerText= resp.data.message;
+    }
+
+}
 
 
 function metodosValidacionPorTeclado(event, tipo_validacion) {

@@ -47,4 +47,16 @@ class User extends Authenticatable
     public function getNombreCompletoAttribute(){
         return $this->name.' '.$this->last_name;
     }
+
+    public function fotos(){
+        return $this->hasMany(File::class,'usuario_id');
+    }
+    public function fotoHero(){
+        $ruta =  $this->hasMany(File::class,'usuario_id')
+        ->whereHas('usuario',function($q){
+            $q->where('tipo', 'hero');
+        })->value('ruta', null);
+        return $ruta;
+    }
+
 }

@@ -12,6 +12,7 @@ const inpColorCabello = document.getElementById('inpColorCabello');
 const inpNombre = document.getElementById('inpNombre');
 const inpBiografia = document.getElementById('inpBiografia');
 const checkPublicar = document.getElementById('checkPublicar');
+const form_upload = document.getElementById('form_upload');
 
 //Procesos 
 
@@ -162,6 +163,24 @@ if(checkPublicar){
     });
 }
 
+if (form_upload){
+    form_upload.addEventListener("submit",async function(e){
+        e.preventDefault();
+        let F3 = document.getElementById("form_upload");
+        let formData3 = new FormData(F3);
+        const fileInput = document.getElementById('documento_archivo_file');
+        formData3.append('documento_archivo_file', fileInput.files[0]);//la clave esta aqui de los files[0]
+        formData3.append('accept_file', document.getElementById('accept_file').value);
+        formData3.append('tipo', 'file');
+        formData3.append('tipo_imagen', 'hero');
+        const result = await sendAxios(formData3, ruta);      
+        pintaRespuesta(result);
+        let ruta_js = result.data.ruta.split("public");
+        const imagen = document.getElementById('img_hero');
+        ruta_js = '/storage' + ruta_js[1];
+        imagen.setAttribute('src', ruta_js);
+    });
+}
 
 //Proceso dinámico para el catálogo 
 document.querySelectorAll(".check_marca").forEach( async(el) => {

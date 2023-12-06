@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Response};
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\{ArchivosController};
+use Illuminate\Support\Facades\{Log};
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\{Perfil, User, Catalogo, Marca, Social};
 
@@ -13,7 +16,6 @@ class PerfilController extends Controller
     
     private $message_error = "Ocurrio un error, espere un momento y vuelva intentarlo por favor.";
     private $message_success = "Se almaceno los datos de manera correcta.";
-    private $type_color = "Your color.";
     
     public function __construct()
     {
@@ -41,14 +43,19 @@ class PerfilController extends Controller
 
         $catalogo_fashion = Catalogo::where('codigo_padre', 'IN FASHION')->get()->toArray();
         $catalogo_sport   = Catalogo::where('codigo_padre', 'IN SPORTS')->get()->toArray();
-
+        
         $social           = $this->validaSocialMedia($perfil);
         $catalogo_fashion = $this->validaMarca($catalogo_fashion, $perfil);
         $catalogo_sport   = $this->validaMarca($catalogo_sport, $perfil);
 
-        return view('perfiles.vista-previa',compact('user','perfil', 'catalogo_fashion', 'catalogo_sport', 'social'));
-    }
+        if ($user->fotoHero()){
+            $url_hero = Storage::url($user->fotoHero());
+        }else{
+            $url_hero = asset('images/Prueba.jpg');
+        }
 
+        return view('perfiles.vista-previa',compact('user','perfil', 'catalogo_fashion', 'catalogo_sport', 'social', 'url_hero'));
+    }
     public function storePerfil(Request $request)
     {
         
@@ -72,6 +79,9 @@ class PerfilController extends Controller
             case 'social':
                 $resp = $this->procesoStoreSocial($request);
             break;
+            case 'file':
+                $resp = $this->procesoStoreFile($request);
+            break;
             default:
                 $resp = null; 
             break;
@@ -79,8 +89,6 @@ class PerfilController extends Controller
 
         return $resp;
     }
-
-
     public function procesoStoreForm(Request $request)
     {
         $user   = User::findOrFail(6);
@@ -111,7 +119,6 @@ class PerfilController extends Controller
         }
 
     }
-
     public function procesoStoreVista(Request $request)
     {
         $user   = User::findOrFail(6);
@@ -128,7 +135,6 @@ class PerfilController extends Controller
         $val_biografia      = $request->input('inpBiografia');
         $val_check_publicar = $request->input('checkPublicar');
         $val_nombre_perfil  = $request->input('inpNombre');
-
 
         $perfil_altura = ($perfil)?$perfil->altura :'0.00';
         $perfil_busto = ($perfil)?$perfil->busto :'0.00';
@@ -229,18 +235,50 @@ class PerfilController extends Controller
             ], 203);
         }
     }
-
+    public function procesoStoreFile(Request $request)
+    {
+        try {
+            //$user   = User::findOrFail(Auth::id());
+            $user    = User::findOrFail(6);
+            $is_file =  ArchivosController::storeFile($request, 'file',$user);
+            return  $this->validaStoreArchivo($is_file);
+        
+        }catch(\Exception $e) {
+            Log::info("Error: ".$e->getMessage());
+            $error_exception = "Error try exception";
+            return Response::json([
+                'message' => $this->message_error."->try",
+                'estatus'   =>  203,//bad
+            ], 203);
+        }
+    }
     public function validaStore($is_create)
     {
         if (!$is_create){
             return Response::json([
-                'message'   => $this->message_error,
+                'message'   => $this->message_error."->no create",
                 'estatus'   =>  203,//bad
             ], 203);
         }else{
             return Response::json([
                 'message' => $this->message_success,
-                'id'   => $is_create->id ,
+                'id'   => $is_create->id,
+                'estatus'   =>  201,//Good
+            ], 201);
+        }
+    }
+    public function validaStoreArchivo($is_create)
+    {
+        if (!$is_create){
+            return Response::json([
+                'message'   => $this->message_error."->no create",
+                'estatus'   =>  203,//bad
+            ], 203);
+        }else{
+            return Response::json([
+                'message' => $this->message_success,
+                'id'   => $is_create->id,
+                'ruta'   => $is_create->ruta,
                 'estatus'   =>  201,//Good
             ], 201);
         }
@@ -264,7 +302,6 @@ class PerfilController extends Controller
         }
         return $catalogo; 
     }
-
     public function validaSocialMedia($perfil){
 
         $vacio[0]='Sin asignar';
@@ -284,7 +321,6 @@ class PerfilController extends Controller
         }
         return $social;
     }
-
     public function validaMarca($catalogo, $perfil){
         return  $this->validaPerfilMarca($catalogo, $perfil);
     }
