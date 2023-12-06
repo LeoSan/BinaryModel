@@ -175,10 +175,13 @@ if (form_upload){
         formData3.append('tipo_imagen', 'hero');
         const result = await sendAxios(formData3, ruta);      
         pintaRespuesta(result);
-        let ruta_js = result.data.ruta.split("public");
-        const imagen = document.getElementById('img_hero');
-        ruta_js = '/storage' + ruta_js[1];
-        imagen.setAttribute('src', ruta_js);
+        
+        if(result.data.estatus == 201){
+            let ruta_js = result.data.ruta.split("public");
+            const imagen = document.getElementById('img_hero');
+            ruta_js = '/storage' + ruta_js[1];
+            imagen.setAttribute('src', ruta_js);
+        }
     });
 }
 
