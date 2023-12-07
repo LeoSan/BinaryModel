@@ -1,0 +1,20 @@
+
+.form-login{
+    input{
+        border: 1px solid $gold !important;
+        color: black;
+    }
+
+    input:focus {
+        color: $gold;
+      }
+
+
+    a{
+        color: $gold;
+        font-weight: bold;
+    }
+
+
+
+}

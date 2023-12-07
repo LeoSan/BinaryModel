@@ -17,15 +17,6 @@ class PerfilController extends Controller
     private $message_error = "Ocurrio un error, espere un momento y vuelva intentarlo por favor.";
     private $message_success = "Se almaceno los datos de manera correcta.";
     
-    public function __construct()
-    {
-
-    }
-    public function index(Request $request)
-    {
-        //return view('denuncias.index');
-    }
-
     public function showFormulario(Request $request)
     {
         $user   = User::findOrFail(6);
@@ -91,8 +82,8 @@ class PerfilController extends Controller
     }
     public function procesoStoreForm(Request $request)
     {
-        $user   = User::findOrFail(6);
-        //$user   = User::findOrFail(Auth::id());
+        //$user   = User::findOrFail(6);
+        $user   = User::findOrFail(Auth::id());
         $perfil = Perfil::where('usuario_id', $user->id)->first();
 
         try {
@@ -121,8 +112,8 @@ class PerfilController extends Controller
     }
     public function procesoStoreVista(Request $request)
     {
-        $user   = User::findOrFail(6);
-        //$user   = User::findOrFail(Auth::id());
+        //$user   = User::findOrFail(6);
+        $user   = User::findOrFail(Auth::id());
         $perfil = Perfil::where('usuario_id', $user->id)->first();
 
         $val_altura  = $request->input('inpAltuta');
@@ -180,8 +171,8 @@ class PerfilController extends Controller
     }
     public function procesoStoreSocial(Request $request)
     {
-        //$user   = User::findOrFail(Auth::id());
-        $user   = User::findOrFail(6);
+        $user   = User::findOrFail(Auth::id());
+        //$user   = User::findOrFail(6);
         $perfil = Perfil::where('usuario_id', $user->id)->first();
 
 
@@ -209,8 +200,8 @@ class PerfilController extends Controller
     public function procesoStoreMarca(Request $request)
     {
         
-        $user   = User::findOrFail(6);
-        //$user   = User::findOrFail(Auth::id());
+        //$user   = User::findOrFail(6);
+        $user   = User::findOrFail(Auth::id());
         $perfil = Perfil::where('usuario_id', $user->id)->first();
 
         try {
@@ -238,8 +229,8 @@ class PerfilController extends Controller
     public function procesoStoreFile(Request $request)
     {
         try {
-            //$user   = User::findOrFail(Auth::id());
-            $user    = User::findOrFail(6);
+            $user   = User::findOrFail(Auth::id());
+            //$user    = User::findOrFail(6);
             $is_file =  ArchivosController::storeFile($request, 'file',$user);
             return  $this->validaStoreArchivo($is_file);
         

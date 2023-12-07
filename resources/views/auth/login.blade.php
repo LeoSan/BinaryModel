@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" class="form-login">
                         @csrf
 
                         <div class="row mb-3">
@@ -44,7 +44,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label class="form-check-label text-gold" for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
