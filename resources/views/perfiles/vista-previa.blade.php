@@ -26,7 +26,7 @@
     <div class="custom-lg medidas">
         <p>
             <strong>HEIGHT</strong>      
-            <input id="inpAltuta" name="inpAltuta" type="text" onkeyup="validaStringTeclado(this, 'float')"  maxlength="4"
+            <input id="inpAltuta" name="inpAltuta" type="text" onkeyup="validaStringTeclado(this, 'float')"   maxlength="4"
                     value="{{$perfil ? $perfil->altura : '0.00'}}" />
             CM.
         </p>
@@ -83,6 +83,15 @@
     </div>
 </section>
 
+<section id="gallery" class="gallery">
+    <div class="container contenedor-bio">
+        <h1 class="titulos text-center mb-3">MY WORKS GALLERY</h1>
+        <div>
+            <img id="btnGalleryUpload" src="{{ asset('images/icon/uploadImage.png') }}" class="img-upload" data-bs-toggle="modal" data-bs-target="#exampleModalGallery" />
+        </div>
+    </div>
+</section>
+
 <section id="Caracteristicas" class="gallery">
 
     <div class="container contenedor-bio">
@@ -121,7 +130,6 @@
 
         </div>
 </section>
-
 
 <hr>
 
@@ -169,10 +177,8 @@
         </div>
     </div>
 </section>
-        
 
 @include('perfiles.partials.modal-file-perfil-hero')
-
-
-            
+@include('perfiles.partials.modal-file-perfil-gallery', ['listado'=>$user])
+           
 @endsection

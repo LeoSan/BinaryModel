@@ -1,10 +1,6 @@
+//funciones Helpers 
 
-window.formaFuncionesGlobales = async function (e){
-    console.log(e)
-    e.preventDefault();
-    alert('Soy una prueba');
-}
-
+//funciones Globales
 window.sendFetch = async  (datos, ruta)=>{
     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     let result = await fetch(ruta, {
@@ -45,7 +41,6 @@ window.sendAxios = async (datos, ruta)=>{
     return result;
 }
 
-
 window.validaStringTeclado = (event, tipo_validacion)=>{
     metodosValidacionPorTeclado(event, tipo_validacion);
 }
@@ -66,6 +61,7 @@ window.pintaRespuesta = (resp)=>{
 }
 
 
+//Funciones operacionales 
 function metodosValidacionPorTeclado(event, tipo_validacion) {
     //Los valores de las llaves del array representan los posibles valores permitidos
     let selectArray = new Array();
@@ -78,6 +74,6 @@ function metodosValidacionPorTeclado(event, tipo_validacion) {
         event.value = "";
         return;
       }
-  }
+}
 
 

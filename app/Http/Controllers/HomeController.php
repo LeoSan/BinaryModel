@@ -14,22 +14,11 @@ class HomeController extends Controller
     
     private $control_perfil;
     
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
         $this->control_perfil = new PerfilController();
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         if (Auth::check()) {
@@ -39,7 +28,6 @@ class HomeController extends Controller
         }
 
     }
-
     public function vistaPerfil(){
             $user   = User::findOrFail(Auth::id());
             $perfil = Perfil::where('usuario_id', $user->id)->first();

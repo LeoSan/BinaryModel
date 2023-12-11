@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Campo Primary Key');
             $table->unsignedBigInteger('usuario_id')->comment('Campo FK relacionado con la tabla usuario');
-
             $table->string('ruta')->nullable()->comment('Campo Ruta');
-            $table->string('nombre')->nullable()->comment('Campo nombre del archivo ');
+            $table->string('nombre')->nullable()->comment('Campo nombre del sistema ');
+            $table->string('nombre_anexo')->nullable()->comment('Campo nombre anexo que le coloca el asuario');
+            $table->string('descripcion')->nullable()->comment('Campo desribe la imagen');
             $table->string('extension')->nullable()->comment('Campo extension');
             $table->string('peso')->nullable()->comment('Campo peso de la imagen');
             $table->string('tipo')->nullable()->comment('Campo  indica el tipo de la imagen');

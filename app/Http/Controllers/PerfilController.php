@@ -73,6 +73,12 @@ class PerfilController extends Controller
             case 'file':
                 $resp = $this->procesoStoreFile($request);
             break;
+            case 'gallery':
+                $resp = $this->procesoStoreGallery($request);
+            break;
+            case 'foto_eliminar':
+                $resp = ArchivosController::eliminar($request);
+            break;
             default:
                 $resp = null; 
             break;
@@ -243,6 +249,23 @@ class PerfilController extends Controller
             ], 203);
         }
     }
+    public function procesoStoreGallery(Request $request)
+    {
+        try {
+            $user   = User::findOrFail(Auth::id());
+            //$user    = User::findOrFail(6);
+            $is_file =  ArchivosController::storeFile($request, 'gallery',$user);
+            return  $this->validaStoreArchivo($is_file);
+        
+        }catch(\Exception $e) {
+            Log::info("Error: ".$e->getMessage());
+            $error_exception = "Error try exception";
+            return Response::json([
+                'message' => $this->message_error."->try",
+                'estatus'   =>  203,//bad
+            ], 203);
+        }
+    }
     public function validaStore($is_create)
     {
         if (!$is_create){
@@ -268,8 +291,9 @@ class PerfilController extends Controller
         }else{
             return Response::json([
                 'message' => $this->message_success,
-                'id'   => $is_create->id,
-                'ruta'   => $is_create->ruta,
+                'id'   => $is_create[0]->id,
+                'ruta'   => $is_create[0]->ruta,//TODO Leo
+                'filas'   => $is_create,
                 'estatus'   =>  201,//Good
             ], 201);
         }
@@ -315,6 +339,5 @@ class PerfilController extends Controller
     public function validaMarca($catalogo, $perfil){
         return  $this->validaPerfilMarca($catalogo, $perfil);
     }
-
-
+ 
 }

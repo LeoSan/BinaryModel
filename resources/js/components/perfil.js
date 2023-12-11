@@ -13,9 +13,9 @@ const inpNombre = document.getElementById('inpNombre');
 const inpBiografia = document.getElementById('inpBiografia');
 const checkPublicar = document.getElementById('checkPublicar');
 const form_upload = document.getElementById('form_upload');
+const form_upload_gallery = document.getElementById('form_upload_gallery');
 
-//Procesos 
-
+//Eventos 
 if (form1){
 
     form1.addEventListener("submit", async function(e){
@@ -60,8 +60,6 @@ if (form1){
         }
     });
 } 
-
-//Proceso individual 
 if(inpAltuta){
     inpAltuta.addEventListener("focusout", async(event) => {
         event.preventDefault();
@@ -147,7 +145,6 @@ if(inpNombre){
 if(inpBiografia){
     inpBiografia.addEventListener("focusout", async(event) => {
         event.preventDefault();
-        
         var obj = {};
         obj['tipo'] = 'vista';
         obj['inpBiografia'] = inpBiografia.value;
@@ -162,7 +159,26 @@ if(checkPublicar){
         const result = await sendAxios(obj, ruta);
     });
 }
+if (form_upload_gallery){
+    form_upload_gallery.addEventListener("submit",async function(e){
+        e.preventDefault();
+        let F3 = document.getElementById("form_upload_gallery");
+        let formData3 = new FormData(F3);
+        const fileInput = document.getElementById('documento_archivo_gallery');
+        formData3.append('documento_archivo_gallery', fileInput.files[0]);//la clave esta aqui de los files[0]
+        formData3.append('accept_gallery', document.getElementById('accept_file').value);
+        formData3.append('tipo', 'gallery');
+        formData3.append('tipo_imagen', 'gallery_work');
+        formData3.append('name', document.getElementById('name').value);
+        formData3.append('description', document.getElementById('description').value);
+        const result = await sendAxios(formData3, ruta);      
+        console.log(result.data.filas);
+        //        pintaRespuesta(result);
 
+          pintaListadoGalleria(result.data.filas);
+        
+    });
+}
 if (form_upload){
     form_upload.addEventListener("submit",async function(e){
         e.preventDefault();
@@ -185,7 +201,7 @@ if (form_upload){
     });
 }
 
-//Proceso dinámico para el catálogo 
+//funciones dinámicas 
 document.querySelectorAll(".check_marca").forEach( async(el) => {
 
     el.addEventListener("click", async(e) => {
@@ -223,5 +239,43 @@ document.querySelectorAll(".inputRedes").forEach( async(el) => {
   
 });
 
+
+const pintaListadoGalleria = (filas)=>{
+
+    let registros = '';
+    let contenedor = document.getElementById('registrosGalleria');
+    
+    filas.forEach( (element, index) => {
+        registros +=`<tr id="frow_${element.id}">`;
+        registros +=`<th scope="row">${index}</th>`; 
+        registros +=`<td>${element.nombre_anexo}</td>`;
+        registros +=`<td>${element.descripcion}</td>`;
+        registros +=`<td> <a id="btnFotoeliminar_${element.id}" href="#" onclick="eliminaFotoGalleria(this)" data-id="${element.id}"> 
+                            <svg width="15" height="21" viewBox="0 0 15 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <defs>
+                                    <path d="M12.962 2.996h-1.248a.322.322 0 0 1-.322-.322V2.11c0-.888-.722-1.61-1.61-1.61H4.79c-.888 0-1.61.722-1.61 1.61v.564a.322.322 0 0 1-.322.322H1.61c-.889 0-1.61.72-1.61 1.61v1.53c0 .178.144.322.322.322H14.25a.322.322 0 0 0 .322-.322v-1.53c0-.89-.72-1.61-1.61-1.61zm-2.858-.322a.322.322 0 0 1-.322.322H4.79a.322.322 0 0 1-.322-.322V2.11c0-.178.145-.322.322-.322h4.992c.178 0 .322.144.322.322v.564zm2.778 4.589H1.692a.322.322 0 0 0-.323.322V17.89c0 .89.721 1.61 1.61 1.61h8.615c.89 0 1.61-.72 1.61-1.61V7.585a.322.322 0 0 0-.322-.322zM4.67 17.246a.644.644 0 0 1-1.288 0v-7.97a.644.644 0 0 1 1.288 0v7.97zm3.26 0a.644.644 0 0 1-1.288 0v-7.97a.644.644 0 0 1 1.288 0v7.97zm3.26 0a.644.644 0 0 1-1.287 0v-7.97a.644.644 0 0 1 1.288 0v7.97z" id="a"/>
+                                </defs>
+                                <use fill="#D0021B" xlink:href="#a" transform="translate(0 .5)" fill-rule="evenodd"/>
+                            </svg></a>
+                    </td>`;
+        registros +=`</tr>`; 
+    }); 
+
+    contenedor.innerHTML = registros;
+
+}
+
+//funciones globales 
+window.eliminaFotoGalleria = async(event)=>{
+    //console.log(event.dataset.id);
+    var obj = {};
+    obj['tipo'] = 'foto_eliminar';
+    obj['id'] = event.dataset.id;
+    const result = await sendAxios(obj, ruta);
+    pintaRespuesta(result);
+    if (result.data.estatus == 201){
+        document.getElementById(`frow_${event.dataset.id}`).remove();
+    }
+}
 
 

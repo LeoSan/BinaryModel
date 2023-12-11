@@ -24,6 +24,8 @@ class File extends Model
         'perfil_id',
         'ruta',
         'nombre',
+        'nombre_anexo',
+        'descripcion',
         'extension',
         'peso',
         'tipo',
