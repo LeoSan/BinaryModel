@@ -90,7 +90,8 @@
             <img id="btnGalleryUpload" src="{{ asset('images/icon/uploadImage.png') }}" class="img-upload" data-bs-toggle="modal" data-bs-target="#exampleModalGallery" />
         </div>
     </div>
-    @include('perfiles.partials.gallery-worked')
+     {{-- @include('perfiles.partials.gallery-worked') --}}
+    @include('perfiles.partials.gallery-worked-grid')
 </section>
 
 <section id="Caracteristicas" class="gallery">
