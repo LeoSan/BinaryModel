@@ -3,16 +3,14 @@ Proyecto Piloto
 
 ## Pasos para validar desarrollo. 
 - composer install
+- npm i
+- se debe configurar la ruta con el dominio que se suba:
+    - Paso 1: buscar el archivo -> `\resources\js\components\perfil.js`
+    - Paso 2: buscar la variable `ruta` y reemplazar `http://binarymodel.test` por el dominio generado  
 - npm run dev
 - php artisan migrate:refresh --seed
-
-## Acceso inicial 
-- http://binarymodel.test/perfil/registrar
-
   
-## Detalles pendienntes
-- Generar el login
-- vincular el middleware para seguridad al router
-- Integrar formulario con base
-- integrar datos con la vista previsualización
-  
+## Funcionalidad Primero Version 
+- Login 
+- Formulario Dinamico
+- Vista Perfil
