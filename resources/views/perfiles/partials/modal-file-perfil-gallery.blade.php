@@ -59,7 +59,7 @@
                           </tr>
                         @empty
                           <tr>
-                            <td colspan="4"> ¡  Data Nothing  !</td>
+                            <td colspan="4"> <p class="text-center pt-5">¡  Data Nothing  !</p></td>
                           </tr>
                         @endforelse
                       </tbody>

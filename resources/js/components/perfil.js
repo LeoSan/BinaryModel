@@ -1,3 +1,4 @@
+
 //Instancias 
 const ruta = 'http://binarymodel.test/perfil/registrar';
 
@@ -176,6 +177,7 @@ if (form_upload_gallery){
         //        pintaRespuesta(result);
 
           pintaListadoGalleria(result.data.filas);
+          pintarFilasFotos(result.data.filas);
         
     });
 }
@@ -265,6 +267,21 @@ const pintaListadoGalleria = (filas)=>{
 
 }
 
+const pintarFilasFotos = (filas)=>{
+    let row_filas = '';
+    let contenedor = document.getElementById('filas_fotos');
+
+    filas.forEach( (element, index) => {
+        let ruta_storage = element.ruta.split('public') 
+        row_filas +=`<div id="row_filas_${element.id}" class="col-lg-4 col-md-6 col-sm-12">`;
+        row_filas +=`<img src="storage/${ruta_storage[1]}" alt="${element.nombre_anexo}">`; 
+        row_filas +=`<div> <p>${element.descripcion}</p></div>`;
+        row_filas +=`</div>`;
+    }); 
+
+    contenedor.innerHTML = row_filas;
+}
+
 //funciones globales 
 window.eliminaFotoGalleria = async(event)=>{
     //console.log(event.dataset.id);
@@ -275,6 +292,7 @@ window.eliminaFotoGalleria = async(event)=>{
     pintaRespuesta(result);
     if (result.data.estatus == 201){
         document.getElementById(`frow_${event.dataset.id}`).remove();
+        document.getElementById(`row_filas_${event.dataset.id}`).remove();
     }
 }
 
