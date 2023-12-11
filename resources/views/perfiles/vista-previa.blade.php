@@ -90,6 +90,7 @@
             <img id="btnGalleryUpload" src="{{ asset('images/icon/uploadImage.png') }}" class="img-upload" data-bs-toggle="modal" data-bs-target="#exampleModalGallery" />
         </div>
     </div>
+    @include('perfiles.partials.gallery-worked')
 </section>
 
 <section id="Caracteristicas" class="gallery">
@@ -179,6 +180,6 @@
 </section>
 
 @include('perfiles.partials.modal-file-perfil-hero')
-@include('perfiles.partials.modal-file-perfil-gallery', ['listado'=>$user])
+@include('perfiles.partials.modal-file-perfil-gallery')
            
 @endsection
