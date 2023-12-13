@@ -173,11 +173,10 @@ if (form_upload_gallery){
         formData3.append('name', document.getElementById('name').value);
         formData3.append('description', document.getElementById('description').value);
         const result = await sendAxios(formData3, ruta);      
-        console.log(result.data.filas);
+//        console.log(result.data.filas);
         //        pintaRespuesta(result);
-
           pintaListadoGalleria(result.data.filas);
-          pintarFilasFotos(result.data.filas);
+          pintarGaleriaFotos(result.data.filas);
         
     });
 }
@@ -267,19 +266,30 @@ const pintaListadoGalleria = (filas)=>{
 
 }
 
-const pintarFilasFotos = (filas)=>{
+const pintarGaleriaFotos = (filas)=>{
     let row_filas = '';
-    let contenedor = document.getElementById('filas_fotos');
+    let contenedor = document.getElementById('galeria');
 
-    filas.forEach( (element, index) => {
-        let ruta_storage = element.ruta.split('public') 
-        row_filas +=`<div id="row_filas_${element.id}" class="col-lg-4 col-md-6 col-sm-12">`;
-        row_filas +=`<img src="storage/${ruta_storage[1]}" alt="${element.nombre_anexo}">`; 
-        row_filas +=`<div> <p>${element.descripcion}</p></div>`;
-        row_filas +=`</div>`;
-    }); 
+    if (contenedor.dataset.tipogaleria == 'gallery-list'){
+        filas.forEach( (element, index) => {
+            let ruta_storage = element.ruta.split('public') 
+            row_filas +=`<div id="row_filas_${element.id}" class="col-lg-4 col-md-6 col-sm-12">`;
+            row_filas +=`<img src="storage/${ruta_storage[1]}" alt="${element.nombre_anexo}" />`; 
+            row_filas +=`<div> <p>${element.descripcion}</p></div>`;
+            row_filas +=`</div>`;
+        }); 
+    }
 
-    contenedor.innerHTML = row_filas;
+    if (contenedor.dataset.tipogaleria == 'gallery-grid'){
+        filas.forEach( (element, index) => {
+            let ruta_storage = element.ruta.split('public') 
+            row_filas +=`<div id="row_filas_${element.id}" class="gallery__item">`;
+            row_filas +=`<img src="storage/${ruta_storage[1]}" alt="${element.nombre_anexo}" class="gallery__img" />`; 
+            row_filas +=`<h2 class="gallery__title">${element.descripcion}</h2>`;
+            row_filas +=`</div>`;
+        }); 
+    }
+     contenedor.innerHTML = row_filas;
 }
 
 //funciones globales 

@@ -156,6 +156,11 @@ footer {
     height: 100%;
     object-fit: cover;
 }
+
+.gallery__img:hover{
+    border: 10px solid black;
+    cursor: pointer;
+}
 .gallery__title{
     position: absolute;
     bottom: 0px;
