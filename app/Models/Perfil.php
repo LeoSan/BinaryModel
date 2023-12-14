@@ -37,10 +37,4 @@ class Perfil extends Model
     public function social(){
         return $this->hasMany(Social::class,'perfil_id');
     }
-    public function catalogos(){
-        return Catalogo::get()->toArray();
-    }
-
-
-
 }
