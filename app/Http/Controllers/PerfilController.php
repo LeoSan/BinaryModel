@@ -28,16 +28,9 @@ class PerfilController extends Controller
     
     public function showVistaPrevia(Request $request)
     {
-        //$user   = User::findOrFail(Auth::id());
-        $user   = User::findOrFail(6);
-        $perfil = Perfil::where('usuario_id', $user->id)->first();
-
-        $catalogo_fashion = Catalogo::where('codigo_padre', 'IN FASHION')->get()->toArray();
-        $catalogo_sport   = Catalogo::where('codigo_padre', 'IN SPORTS')->get()->toArray();
-        
-        $social           = $this->validaSocialMedia($perfil);
-        $catalogo_fashion = $this->validaMarca($catalogo_fashion, $perfil);
-        $catalogo_sport   = $this->validaMarca($catalogo_sport, $perfil);
+        $user   = User::findOrFail(Auth::id());
+        $perfil   = Perfil::where('usuario_id', $user->id)->first();
+        $social   = $this->validaSocialMedia($perfil);
 
         if ($user->fotoHero()){
             $url_hero = Storage::url($user->fotoHero());
@@ -45,7 +38,7 @@ class PerfilController extends Controller
             $url_hero = asset('images/Prueba.jpg');
         }
 
-        return view('perfiles.vista-previa',compact('user','perfil', 'catalogo_fashion', 'catalogo_sport', 'social', 'url_hero'));
+        return view('perfiles.vista-previa',compact('user','perfil',  'social', 'url_hero'));
     }
     public function storePerfil(Request $request)
     {

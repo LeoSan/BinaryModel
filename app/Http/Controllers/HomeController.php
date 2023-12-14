@@ -31,22 +31,16 @@ class HomeController extends Controller
     public function vistaPerfil(){
             $user   = User::findOrFail(Auth::id());
             $perfil = Perfil::where('usuario_id', $user->id)->first();
-    
-            $catalogo_fashion = Catalogo::where('codigo_padre', 'IN FASHION')->get()->toArray();
-            $catalogo_sport   = Catalogo::where('codigo_padre', 'IN SPORTS')->get()->toArray();
-            $catalogo_lenguaje   = Catalogo::where('codigo_padre', 'LENGUAJE')->get()->toArray();
-
-            $social           = $this->control_perfil->validaSocialMedia($perfil);
-            $catalogo_fashion = $this->control_perfil->validaMarca($catalogo_fashion, $perfil);
-            $catalogo_sport   = $this->control_perfil->validaMarca($catalogo_sport, $perfil);
-            $catalogo_lenguaje = $this->control_perfil->validaMarca($catalogo_lenguaje, $perfil);
+            $catalogo = Catalogo::get()->toArray();
+            $social   = $this->control_perfil->validaSocialMedia($perfil);
+            $catalogo = $this->control_perfil->validaMarca($catalogo, $perfil);
             
             if ($user->fotoHero()){
                 $url_hero = Storage::url($user->fotoHero());
             }else{
                 $url_hero = asset('images/Prueba.jpg');
             }
-            return view('perfiles.vista-previa',compact('user','perfil', 'catalogo_fashion', 'catalogo_sport', 'catalogo_lenguaje', 'social', 'url_hero'));
+            return view('perfiles.vista-previa',compact('user','perfil', 'social', 'url_hero', 'catalogo'));
     }
 
 }
