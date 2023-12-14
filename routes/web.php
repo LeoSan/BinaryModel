@@ -20,3 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('link', function(){
+    Artisan::call('cache:clear');
+    Artisan::call('storage:link');
+});
