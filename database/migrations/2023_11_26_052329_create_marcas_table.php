@@ -18,8 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id')->comment('Campo FK relacionado con la tabla usuario');
             $table->unsignedBigInteger('perfil_id')->comment('Campo FK relacionado con la tabla perfiles');
             $table->unsignedBigInteger('catalogo_id')->comment('Campo FK relacionado con la tabla catalogo');
-            $table->string('catalogo_padre')->comment('campo que indica catalogo padre');
-
 
             //Relaciones
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

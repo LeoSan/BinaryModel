@@ -81,7 +81,6 @@ class PerfilController extends Controller
     }
     public function procesoStoreForm(Request $request)
     {
-        //$user   = User::findOrFail(6);
         $user   = User::findOrFail(Auth::id());
         $perfil = Perfil::where('usuario_id', $user->id)->first();
 
@@ -124,6 +123,7 @@ class PerfilController extends Controller
         $val_color_cabello  = $request->input('inpColorCabello');
         $val_biografia      = $request->input('inpBiografia');
         $val_check_publicar = $request->input('checkPublicar');
+        $val_check_publicar_avatar = $request->input('checkPublicarAvatar');
         $val_nombre_perfil  = $request->input('inpNombre');
 
         $perfil_altura = ($perfil)?$perfil->altura :'0.00';
@@ -135,6 +135,7 @@ class PerfilController extends Controller
         $perfil_color_ojos = ($perfil)?$perfil->color_ojos:null;
         $perfil_color_cabello  = ($perfil)?$perfil->color_cabello:null;
         $perfil_check_publicar = ($perfil)?$perfil->check_publicar:null;
+        $perfil_check_publicar_avatar = ($perfil)?$perfil->val_check_publicar_avatar:null;
 
         try {
             //Inserto valores
@@ -150,6 +151,7 @@ class PerfilController extends Controller
                     'color_cabello'   => isset($val_color_cabello)? $request->input('inpColorCabello'):$perfil_color_cabello,
                     'biografia'       => isset($val_biografia)? $request->input('inpBiografia'):$perfil_biografia,
                     'check_publicar'  => isset($val_check_publicar)? $request->input('checkPublicar'):$perfil_check_publicar,
+                    'check_publicar_avatar'  => isset($val_check_publicar_avatar)? $request->input('checkPublicarAvatar'):$perfil_check_publicar_avatar,
                 ]);
 
              if (isset($val_nombre_perfil)){
@@ -198,8 +200,6 @@ class PerfilController extends Controller
     }
     public function procesoStoreMarca(Request $request)
     {
-        
-        //$user   = User::findOrFail(6);
         $user   = User::findOrFail(Auth::id());
         $perfil = Perfil::where('usuario_id', $user->id)->first();
 
@@ -209,7 +209,6 @@ class PerfilController extends Controller
                     'usuario_id'    =>$user->id,
                     'perfil_id'     =>$perfil->id,
                     'catalogo_id'   =>$request->input('id'),
-                    'catalogo_padre'=>$request->input('padre')
                 ]);
             }else{
                 $is_marca = Marca::where('perfil_id', $perfil->id)->where('catalogo_id',$request->input('id'))->first();
@@ -220,7 +219,7 @@ class PerfilController extends Controller
         }catch(\Exception $e) {
             $error_exception = "Error try exception";
             return Response::json([
-                'message' => $this->message_error,
+                'message' => $this->message_error."->try".$e->getMessage(),
                 'estatus'   =>  203,//bad
             ], 203);
         }
@@ -229,15 +228,14 @@ class PerfilController extends Controller
     {
         try {
             $user   = User::findOrFail(Auth::id());
-            //$user    = User::findOrFail(6);
-            $is_file =  ArchivosController::storeFile($request, 'file',$user);
+            $is_file =  ArchivosController::storeFile($request, $request->input('elemento'),$user);
             return  $this->validaStoreArchivo($is_file);
         
         }catch(\Exception $e) {
             Log::info("Error: ".$e->getMessage());
             $error_exception = "Error try exception";
             return Response::json([
-                'message' => $this->message_error."->try",
+                'message' => $this->message_error,
                 'estatus'   =>  203,//bad
             ], 203);
         }

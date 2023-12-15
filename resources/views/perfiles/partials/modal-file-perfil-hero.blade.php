@@ -10,7 +10,7 @@
           <div class="modal-body">
             <h4 class="text-gold">Upload here your picture with good profile</h4>   
             <div class="mb-3">
-                <label for="formFileSm" class="form-label">Upload</label>
+                <label for="documento_archivo_file" class="form-label">Upload</label>
                 <input type="file"  id="documento_archivo_file" 
                         name="documento_archivo_file" 
                         class="form-control form-control-sm"

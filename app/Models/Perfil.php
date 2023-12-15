@@ -21,6 +21,7 @@ class Perfil extends Model
         'color_cabello',
         'biografia',
         'check_publicar',
+        'check_publicar_avatar',
     ];
 
     protected $casts = [

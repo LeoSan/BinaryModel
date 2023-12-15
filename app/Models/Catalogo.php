@@ -12,7 +12,6 @@ class Catalogo extends Model
     protected $table = 'catalogos';
     protected $fillable = [
         'codigo',
-        'codigo_padre',
         'nombre',
         'descripcion'
     ];

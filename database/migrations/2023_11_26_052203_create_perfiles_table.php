@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('color_cabello', '50')->nullable()->default('Your color')->comment('Campo que indica el color de ojos');
             $table->longText('biografia')->nullable()->default(null)->comment('Campo biografia');
             $table->boolean('check_publicar')->nullable()->default(false)->comment('campo que indica si desea que su perfil pueda ser publicado');
+            $table->boolean('check_publicar_avatar')->nullable()->default(false)->comment('campo que indica si desea que su avatar sea buscado');
 
             $table->timestamps();
             $table->softDeletes();

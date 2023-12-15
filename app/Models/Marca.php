@@ -13,7 +13,6 @@ class Marca extends Model
         'usuario_id',
         'perfil_id',
         'catalogo_id',
-        'catalogo_padre'
     ];
 
 

@@ -82,7 +82,9 @@
         </div>
     </div>
 </section>
-{{-- Geleria --}}
+{{-- Carga avatar --}}
+@include('perfiles.partials.load-avatar')
+{{-- Galeria --}}
 <section id="gallery" class="gallery">
     <div class="container contenedor-bio">
         <h1 class="titulos text-center mb-3">MY WORKS GALLERY</h1>
@@ -97,7 +99,6 @@
 <section id="Caracteristicas" class="gallery">
     <div class="container">
         <h1 class="titulos text-center mb-3">HELP BRANDS FIND YOU</h1>
-
         <div class="text-bio text-center">
             <p>We invite you to embody the epitome of success in the modeling world. Discover below a range of options designed to capture the essence of your unique personality, creating a compelling profile that will attract top-tier brands. Let this be your passport to becoming a sought-after model, as we tailor your image to resonate with the industry's finest.</p>
         </div>
@@ -107,7 +108,7 @@
             <h3 class="mt-4 mb-4">SKILL</h3>
                 @forelse ( $catalogo as $key=> $list )
                     <div class="form-check form-switch d-inline-block col-12">
-                        <input class="form-check-input check_marca" type="checkbox" role="switch" id="{{ $catalogo[$key]['codigo'] }}" name="{{$catalogo[$key]['codigo']}}" data-user="{{$user->id}}" data-id="{{$catalogo[$key]['id']}}" data-padre="{{$catalogo[$key]['codigo_padre'] }}"   @checked(old($catalogo[$key]['codigo'], $catalogo[$key]['check'] ))  />
+                        <input class="form-check-input check_marca" type="checkbox" role="switch" id="{{ $catalogo[$key]['codigo'] }}" name="{{$catalogo[$key]['codigo']}}" data-user="{{$user->id}}" data-id="{{$catalogo[$key]['id']}}"  @checked(old($catalogo[$key]['codigo'], $catalogo[$key]['check'] ))  />
                         <label class="form-check-label" for="{{$catalogo[$key]['codigo']}}">{{$catalogo[$key]['nombre']}}</label>
                     </div>    
                 @empty

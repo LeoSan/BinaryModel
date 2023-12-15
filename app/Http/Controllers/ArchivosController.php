@@ -13,7 +13,9 @@ class ArchivosController extends Controller
 
     public static function storeFile(Request $request, $codigo, $user)
     {
-                
+         
+        
+
         $archivo = $request->file('documento_archivo_'. $codigo);
         $mimes   = $request->input('accept_'. $codigo);
         $tipo_imagen   = $request->input('tipo_imagen');
@@ -24,6 +26,9 @@ class ArchivosController extends Controller
         $descripcion  = isset($descripcion)? $request->input('description') : null;
 
         if ($archivo){
+                
+         
+            
                 $rutaArchivo = $archivo->store("public/archivos/$user->id");//configuracion
                 $pesoArchivo = round($archivo->getSize() / 1024, 2);
                 $datosArchivo = [
@@ -48,6 +53,14 @@ class ArchivosController extends Controller
                     case 'gallery_work':
                         $file = File::create($datosArchivo);
                         $file = File::where('usuario_id', '=', $user->id)->where('tipo', '=', 'gallery_work')->get();
+                    break;
+                    case 'avatar':
+                        $file = File::updateOrCreate([
+                            'usuario_id' => $user->id,
+                            'tipo' => $tipo_imagen,
+                        ], $datosArchivo);
+
+                        $file = File::where('usuario_id', '=', $user->id)->where('tipo', '=', 'avatar')->get();
                     break;
                     default:
                         $file = false;

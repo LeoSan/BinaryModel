@@ -13,8 +13,10 @@ const inpColorCabello = document.getElementById('inpColorCabello');
 const inpNombre = document.getElementById('inpNombre');
 const inpBiografia = document.getElementById('inpBiografia');
 const checkPublicar = document.getElementById('checkPublicar');
+const checkPublicarAvatar = document.getElementById('checkPublicarAvatar');
 const form_upload = document.getElementById('form_upload');
 const form_upload_gallery = document.getElementById('form_upload_gallery');
+const documento_archivo_avatar = document.getElementById('documento_archivo_avatar');
 
 //Eventos 
 if (form1){
@@ -160,6 +162,14 @@ if(checkPublicar){
         const result = await sendAxios(obj, ruta);
     });
 }
+if(checkPublicarAvatar){
+    checkPublicarAvatar.addEventListener("click", async(event) => {
+        var obj = {};
+        obj['tipo'] = 'vista';
+        obj['checkPublicarAvatar'] = (event.target.checked)?1:0;
+        const result = await sendAxios(obj, ruta);
+    });
+}
 if (form_upload_gallery){
     form_upload_gallery.addEventListener("submit",async function(e){
         e.preventDefault();
@@ -169,14 +179,14 @@ if (form_upload_gallery){
         formData3.append('documento_archivo_gallery', fileInput.files[0]);//la clave esta aqui de los files[0]
         formData3.append('accept_gallery', document.getElementById('accept_file').value);
         formData3.append('tipo', 'gallery');
+        formData3.append('elemento', 'gallery');
         formData3.append('tipo_imagen', 'gallery_work');
         formData3.append('name', document.getElementById('name').value);
         formData3.append('description', document.getElementById('description').value);
         const result = await sendAxios(formData3, ruta);      
-//        console.log(result.data.filas);
-        //        pintaRespuesta(result);
-          pintaListadoGalleria(result.data.filas);
-          pintarGaleriaFotos(result.data.filas);
+        pintaListadoGalleria(result.data.filas);
+        pintarGaleriaFotos(result.data.filas);
+        F3.reset();
         
     });
 }
@@ -189,6 +199,7 @@ if (form_upload){
         formData3.append('documento_archivo_file', fileInput.files[0]);//la clave esta aqui de los files[0]
         formData3.append('accept_file', document.getElementById('accept_file').value);
         formData3.append('tipo', 'file');
+        formData3.append('elemento', 'file');
         formData3.append('tipo_imagen', 'hero');
         const result = await sendAxios(formData3, ruta);      
         pintaRespuesta(result);
@@ -201,19 +212,40 @@ if (form_upload){
         }
     });
 }
+if (documento_archivo_avatar){
+    documento_archivo_avatar.addEventListener("change",async function(e){
+        e.preventDefault();
+        let F3 = document.getElementById("form_upload_avatar");
+        let formData3 = new FormData(F3);
+        const fileInput = document.getElementById('documento_archivo_avatar');
+        formData3.append('documento_archivo_avatar', fileInput.files[0]);//la clave esta aqui de los files[0]
+        formData3.append('accept_avatar', document.getElementById('accept_file').value);
+        formData3.append('tipo', 'file');
+        formData3.append('elemento', 'avatar');
+        formData3.append('tipo_imagen', 'avatar');
+        const result = await sendAxios(formData3, ruta);      
+        
+        if(result.data.estatus == 201){
+            let ruta_js = result.data.ruta.split("public");
+            let imagen = document.getElementById('img_avatar');
+            ruta_js = '/storage' + ruta_js[1];
+            imagen.setAttribute('src', ruta_js)
+            document.getElementById('section_avatar').classList.remove('d-none');
+            document.getElementById('section_publicar_avatar').classList.remove('d-none');
+        }
+    });
+}
 
 //funciones dinámicas 
 document.querySelectorAll(".check_marca").forEach( async(el) => {
 
     el.addEventListener("click", async(e) => {
         const id = e.target.getAttribute("data-id");
-        const padre = e.target.getAttribute("data-padre");
         const user = e.target.getAttribute("data-user");
 
         var obj = {};
         obj['tipo']    = 'marca';
         obj['id']      = id;
-        obj['padre']   = padre;
         obj['user']    = user;
         obj['checked'] = e.target.checked;
 
