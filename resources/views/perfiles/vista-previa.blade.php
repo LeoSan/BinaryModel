@@ -5,7 +5,7 @@
 
 <div class="hero overlay">
     <div class="img-bg rellax">
-        <img id="img_hero" src="{{ ($url_hero) }}"  alt="Image" class="img-fluid"  width="1100px" />
+        <img id="img_hero" src="{{ $imagenes['url_hero'] }}"  alt="Image" class="img-fluid"  width="1100px" />
         <div class="update-icon">
             <img src="{{ asset('images/icon/uploadImage.png') }}" class="img-upload" data-bs-toggle="modal" data-bs-target="#exampleModal" />
         </div>
@@ -83,7 +83,7 @@
     </div>
 </section>
 {{-- Carga avatar --}}
-@include('perfiles.partials.load-avatar')
+@include('perfiles.partials.load-avatar', ['imagen'=>$imagenes['url_avatar']])
 {{-- Galeria --}}
 <section id="gallery" class="gallery">
     <div class="container contenedor-bio">

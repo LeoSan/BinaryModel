@@ -330,5 +330,23 @@ class PerfilController extends Controller
     public function validaMarca($catalogo, $perfil){
         return  $this->validaPerfilMarca($catalogo, $perfil);
     }
+
+    public function fotoHero($user){
+        if ($user->fotoHero()){
+            $url = Storage::url($user->fotoHero());
+        }else{
+            $url = asset('images/Prueba.jpg');
+        }
+        return $url;
+    }
+
+    public function fotoAvatar($user){
+        if ($user->fotoAvatar()){
+            $url = Storage::url($user->fotoAvatar());
+        }else{
+            $url = null;
+        }
+        return $url;
+    }
  
 }

@@ -21,15 +21,15 @@
   </div>
   <div class="p-2 ">
       {{-- Imagen Avatar --}}
-      <section id="section_avatar" class="d-none">
+      <section id="section_avatar" @if ($imagen == null) class="d-none" @endif>
         <div class="img-bg text-center">
-          <img id="img_avatar" src="{{ asset('images/soporte/upload.jpg') }}"  alt="Image" class="img-fluid img-avatar" />
+          <img id="img_avatar" @if ($imagen == null) src="{{ asset('images/soporte/upload.jpg') }}" @else src="{{ asset($imagen) }}"  @endif    alt="Image" class="img-fluid img-avatar" />
         </div>    
       </section>
   </div>
   <div class="p-2 ">
       {{-- Cehck Publicar Avatar --}}
-      <section id="section_publicar_avatar" class="d-none">
+      <section id="section_publicar_avatar" @if ($imagen == null) class="d-none" @endif>
         <div class="container">
           <div class="form-check form-switch d-inline-block text-center">
               <input class="form-check-input btn-publicar" type="checkbox" role="switch" id="checkPublicarAvatar"  @checked(old('checkPublicarAvatar', $perfil? $perfil->check_publicar_avatar: null))>

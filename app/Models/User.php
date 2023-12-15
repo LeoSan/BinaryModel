@@ -58,5 +58,12 @@ class User extends Authenticatable
         })->value('ruta', null);
         return $ruta;
     }
+    public function fotoAvatar(){
+        $ruta =  $this->hasMany(File::class,'usuario_id')
+        ->whereHas('usuario',function($q){
+            $q->where('tipo', 'avatar');
+        })->value('ruta', null);
+        return $ruta;
+    }
 
 }

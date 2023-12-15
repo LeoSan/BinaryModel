@@ -29,18 +29,18 @@ class HomeController extends Controller
 
     }
     public function vistaPerfil(){
-            $user   = User::findOrFail(Auth::id());
-            $perfil = Perfil::where('usuario_id', $user->id)->first();
+            $user     = User::findOrFail(Auth::id());
+            $perfil   = Perfil::where('usuario_id', $user->id)->first();
             $catalogo = Catalogo::get()->toArray();
             $social   = $this->control_perfil->validaSocialMedia($perfil);
             $catalogo = $this->control_perfil->validaMarca($catalogo, $perfil);
             
-            if ($user->fotoHero()){
-                $url_hero = Storage::url($user->fotoHero());
-            }else{
-                $url_hero = asset('images/Prueba.jpg');
-            }
-            return view('perfiles.vista-previa',compact('user','perfil', 'social', 'url_hero', 'catalogo'));
+            $imagenes['url_hero'] = $this->control_perfil->fotoHero($user);
+            $imagenes['url_avatar'] = $this->control_perfil->fotoAvatar($user);
+
+            return view('perfiles.vista-previa',compact('user','perfil', 'social', 'imagenes', 'catalogo'));
     }
+
+
 
 }
