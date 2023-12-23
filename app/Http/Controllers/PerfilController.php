@@ -9,7 +9,7 @@ use App\Http\Controllers\{ArchivosController};
 use Illuminate\Support\Facades\{Log};
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\{Perfil, User, Catalogo, Marca, Social};
+use App\Models\{Perfil, User, Catalogo, Marca, Social, Categoria};
 
 class PerfilController extends Controller
 {
@@ -291,8 +291,8 @@ class PerfilController extends Controller
     }
     public function validaPerfilMarca($catalogo, $perfil)
     {
+        $val_skill = '';
         foreach ($catalogo as $key => $value) {
-            
              if ( $perfil != null ){
                 $valida = $perfil->marca->where('catalogo_id', $value['id'])->value('catalogo_id', null); 
                 if ($valida > 0){
@@ -303,7 +303,15 @@ class PerfilController extends Controller
              
             }else{
                 $catalogo[$key][ 'check'] = false;
-             } 
+            }
+            $categoria = Categoria::where('id', $value['categoria_id'])->first();
+
+            if ( $val_skill != $categoria->id ){
+                $catalogo[$key][ 'nom_categoria'] = $categoria->nombre;
+                $val_skill = $categoria->id; 
+            }else{
+                $catalogo[$key][ 'nom_categoria'] = '';
+            }
             
         }
         return $catalogo; 

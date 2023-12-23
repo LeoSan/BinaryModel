@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('catalogos', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Campo Primary Key');
             $table->string('codigo')->comment('Campo que indica el codigo ');
             $table->string('nombre')->nullable()->comment('Campo que indica el codigo padre ');
             $table->string('descripcion')->nullable()->comment('Campo que indica el codigo padre ');
+            $table->boolean('activo')->default(true)->comment('Campo que indica el codigo padre ');
 
             $table->timestamps();
         });

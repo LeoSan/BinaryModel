@@ -105,11 +105,11 @@
  
         <div id="cheks-caracteristicas">
             <h2 class="mt-5 mb-4">WHAT DO YOU LIKE?</h2>
-            <h3 class="mt-4 mb-4">SKILL</h3>
                 @forelse ( $catalogo as $key=> $list )
+                    <h3 class="mt-4 mb-4">{{$catalogo[$key]['nom_categoria']}}</h3>        
                     <div class="form-check form-switch d-inline-block col-12">
-                        <input class="form-check-input check_marca" type="checkbox" role="switch" id="{{ $catalogo[$key]['codigo'] }}" name="{{$catalogo[$key]['codigo']}}" data-user="{{$user->id}}" data-id="{{$catalogo[$key]['id']}}"  @checked(old($catalogo[$key]['codigo'], $catalogo[$key]['check'] ))  />
-                        <label class="form-check-label" for="{{$catalogo[$key]['codigo']}}">{{$catalogo[$key]['nombre']}}</label>
+                        <input class="form-check-input check_marca" type="checkbox" role="switch" id="{{ $catalogo[$key]['id'] }}" name="{{$catalogo[$key]['nombre']}}" data-user="{{$user->id}}" data-id="{{$catalogo[$key]['id']}}"  @checked(old($catalogo[$key]['id'], $catalogo[$key]['check'] ))  />
+                        <label class="form-check-label" for="{{$catalogo[$key]['id']}}">{{$catalogo[$key]['nombre']}}</label>
                     </div>    
                 @empty
                     <p class="text-center pt-5">¡  Data Nothing  !</p>   
