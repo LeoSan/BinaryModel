@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 //use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{Perfil, User, Catalogo};
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\{PerfilController};
 
 
@@ -16,17 +15,21 @@ class HomeController extends Controller
     
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
         $this->control_perfil = new PerfilController();
+
     }
     public function index()
     {
         if (Auth::check()) {
             return $this->vistaPerfil();
         }else{
-            return view('home');
+            $perfiles = Perfil::where('check_publicar', 1)->get();
+            $tipo = null;
+            $habilidades = Catalogo::where('activo', 1)->get();
+            return view('welcome', compact('perfiles', 'tipo', 'habilidades'));
+            //return view('home', compact('perfiles', 'tipo'));
         }
-
     }
     public function vistaPerfil(){
             $user     = User::findOrFail(Auth::id());
@@ -40,7 +43,4 @@ class HomeController extends Controller
 
             return view('perfiles.vista-previa',compact('user','perfil', 'social', 'imagenes', 'catalogo'));
     }
-
-
-
 }
