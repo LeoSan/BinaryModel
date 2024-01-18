@@ -28,17 +28,16 @@
             @forelse ($perfiles as $item )
                 @include('components.card', ['item'=>$item])
             @empty
-                
+                @include('components.data_not_found')
             @endforelse
         @else
             @foreach ( $perfiles as $item )
                 @include('components.card', ['item'=>$item])
             @endforeach
         @endif
-        
     </div>
     {{-- Modal Filter --}}
-    @include('components.filters', ['habilidades'=>$habilidades])
+    @include('components.filters', ['filtros'=>$filtros])
 </div>
 
 

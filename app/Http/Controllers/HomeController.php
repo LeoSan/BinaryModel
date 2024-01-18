@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 //use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{Perfil, User, Catalogo};
-use App\Http\Controllers\{PerfilController};
+use App\Http\Controllers\{PerfilController, SearchController};
+
 
 
 class HomeController extends Controller
@@ -26,9 +27,8 @@ class HomeController extends Controller
         }else{
             $perfiles = Perfil::where('check_publicar', 1)->get();
             $tipo = null;
-            $habilidades = Catalogo::where('activo', 1)->get();
-            return view('welcome', compact('perfiles', 'tipo', 'habilidades'));
-            //return view('home', compact('perfiles', 'tipo'));
+            $filtros = SearchController::generarFiltrosBusqueda();
+            return view('welcome', compact('perfiles', 'tipo',  'filtros'));
         }
     }
     public function vistaPerfil(){
@@ -43,4 +43,6 @@ class HomeController extends Controller
 
             return view('perfiles.vista-previa',compact('user','perfil', 'social', 'imagenes', 'catalogo'));
     }
+
+
 }
