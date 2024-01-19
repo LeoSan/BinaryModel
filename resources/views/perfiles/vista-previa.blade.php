@@ -112,7 +112,7 @@
                         <label class="form-check-label" for="{{$catalogo[$key]['id']}}">{{$catalogo[$key]['nombre']}}</label>
                     </div>    
                 @empty
-                    <p class="text-center pt-5">¡  Data Nothing  !</p>   
+                    @include('components.data_not_found')
                 @endforelse
         </div>
 </section>

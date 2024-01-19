@@ -6,7 +6,7 @@
                         <a href="index.html" class="logo m-0">Binary Models</a>
                     </div>
                     <div class="p-2  text-center">
-                        <form method="POST" action="{{ route('search') }}" class="form-search">
+                        <form id="form_search" method="POST" action="{{ route('search') }}" class="form-search">
                             @csrf
                             <input id="inpTipo" name="tipo" type="hidden" value="search"/>
            

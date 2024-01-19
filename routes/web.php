@@ -24,17 +24,10 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/search',[SearchController::class,'search'])->name('search');
-
-
-
+Route::get('/{id}/perfil',[SearchController::class,'perfil'])->name('search.perfil');
 
 // use Illuminate\Support\Facades\Artisan;
-
 // Route::get('link', function(){
 //     Artisan::call('cache:clear');
 //     Artisan::call('storage:link');
 // });
-
-
-
-

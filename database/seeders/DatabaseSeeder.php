@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CatalogosTableSeeder::class,
             UsersTableSeeder::class,
             PerfilSeeder::class,
+            FileSeeder::class,
 
         ]);
 

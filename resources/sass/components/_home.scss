@@ -1,5 +1,11 @@
 // Ajuste en el home
-.form-search{
+.form-search, .form-filtro {
+    h6{
+        color:$gold;
+        font-weight: bold;
+        margin-top: 0.9rem;
+    }
+    
     input{
         border: 1px solid $gold !important;
         color: black;
@@ -39,16 +45,12 @@
     .form-check-label{
         color: $gold !important;
     }
+
+
 }
 
 
 .fill-gold {
-    border: 1px solid $gold;
-    width: 16px;
-    height: 16px;
-    background-color: $gold;
-
-    //   &:hover{
-    //   filter: invert(100%);
-    // }
+    width: 18px;
+    height: 18px;
 }

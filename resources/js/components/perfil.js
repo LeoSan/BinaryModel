@@ -337,5 +337,3 @@ window.eliminaFotoGalleria = async(event)=>{
         document.getElementById(`row_filas_${event.dataset.id}`).remove();
     }
 }
-
-

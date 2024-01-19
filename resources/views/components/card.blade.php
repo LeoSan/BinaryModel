@@ -1,5 +1,7 @@
 <div class="card mx-3 my-3" style="width: 18rem;">
-    <img src="{{ asset('images/soporte/card-image.svg') }}" class="card-img-top mt-2" alt="sin imagen">
+    <img 
+      @if ($item->usuario->fotos()->where('tipo', 'avatar')->value('ruta') == null) src="{{ asset('images/soporte/card-image.svg') }}" @else src="{{ asset( Storage::url($item->usuario->fotos()->where('tipo', 'avatar')->value('ruta')) ) }}"  @endif
+      class="card-img-top mt-2" alt="sin imagen"/>
     <div class="card-body">
       <h5 class="card-title">{{$item->nombre_completo}}</h5>
       <p class="card-text">{{$item->biografia}}.</p>
@@ -12,6 +14,6 @@
       <li class="list-group-item">Vistas: {{$item->views}} </li>
     </ul>
     <div class="card-body">
-      <a href="#" class="card-link">Ver +</a>
+      <a href="{{route('search.perfil', ['id'=>$item->id])}}" class="card-link">Ver +</a>
     </div>
   </div>

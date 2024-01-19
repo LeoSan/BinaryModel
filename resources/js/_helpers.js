@@ -59,8 +59,6 @@ window.pintaRespuesta = (resp)=>{
     }
 
 }
-
-
 //Funciones operacionales 
 function metodosValidacionPorTeclado(event, tipo_validacion) {
     //Los valores de las llaves del array representan los posibles valores permitidos

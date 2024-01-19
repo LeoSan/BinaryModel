@@ -40,7 +40,6 @@
     @include('components.filters', ['filtros'=>$filtros])
 </div>
 
-
-
 </body>
+@vite('resources/js/app.js')
 </html>

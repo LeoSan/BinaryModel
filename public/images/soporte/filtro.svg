@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" 
+viewBox="0 0 32 32"
 style="
-    height:16px;
-    width:16px;
+    height:18px;
+    width:18px;
     stroke:#fdac42;
-    stroke-width:2;" 
+    stroke-width:3;" 
 aria-hidden="true" 
 role="presentation" 
 focusable="true">

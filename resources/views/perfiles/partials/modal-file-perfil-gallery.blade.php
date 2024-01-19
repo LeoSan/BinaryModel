@@ -59,7 +59,7 @@
                           </tr>
                         @empty
                           <tr>
-                            <td colspan="4"> <p class="text-center pt-5">¡  Data Nothing  !</p></td>
+                            <td colspan="4"> @include('components.data_not_found') </td>
                           </tr>
                         @endforelse
                       </tbody>

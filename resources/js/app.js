@@ -3,4 +3,6 @@ import './_helpers';
 
 //components 
 import './components/perfil';
+import './components/search';
+
 
