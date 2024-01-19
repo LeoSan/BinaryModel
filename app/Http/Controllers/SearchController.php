@@ -49,8 +49,8 @@ class SearchController extends Controller
     }
 
     public function busqueda_filtro(Request $request) : object {
-        $edad    = $request->input('edad');
-        $nacionalidad    = $request->input('nacionalidad');
+        $edad          = $request->input('edad');
+        $nacionalidad  = $request->input('nacionalidad');
         $genero   = $request->input('genero');
         $likes    = $request->input('likes');
         $views    = $request->input('views');
@@ -62,6 +62,7 @@ class SearchController extends Controller
         $color_ojos    = $request->input('color_ojos');
         $color_cabello    = $request->input('color_cabello');
 
+        $array_check_skill = $this->obtenerSkillRequestDinamico($request); 
 
         $perfiles = Perfil::where('check_publicar', 1)
         ->when($edad, function($query)use($edad){
@@ -103,6 +104,9 @@ class SearchController extends Controller
         ->when($color_cabello, function($query)use($color_cabello){
             $query->where('color_cabello',$color_cabello);
         })
+        ->whereHas('marca',function($query)use($array_check_skill){//Consulto las habilidades
+            $query->whereIn('catalogo_id', $array_check_skill);
+        })
         ->get();
         
         return $perfiles; 
@@ -132,5 +136,19 @@ class SearchController extends Controller
         return view('components.perfil-detalle', compact('perfil','filtros'));
     }
 
+    public function obtenerSkillRequestDinamico(Request $request) : array {
+        $array_check_skill = []; 
 
+        $cate_skill_arrays = Categoria::where('union', 'skill')->pluck('id')->toArray();
+        $list_habilidades    = Catalogo::whereIN('categoria_id', $cate_skill_arrays)->get();
+        
+        $indice = 0;
+        foreach ($list_habilidades as $key => $value) {
+            if( !empty($request->input('check_skill_'.$value->id)) ){
+                $array_check_skill[$indice] = $request->input('check_skill_'.$value->id);
+                $indice++;
+            }
+        }
+        return $array_check_skill; 
+    }
 }

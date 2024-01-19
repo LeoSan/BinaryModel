@@ -176,7 +176,7 @@
               @forelse ( $filtros['filtro_habilidades'] as $item )
                 <div class="col-4">
                   <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="check_{{$item->nombre}}" name="check_{{$item->nombre}}">
+                    <input class="form-check-input" type="checkbox" id="check_{{$item->nombre}}" value="{{$item->id}}" name="check_skill_{{$item->id}}">
                     <label class="form-check-label" for="check_{{$item->nombre}}">{{$item->nombre}}</label>
                   </div>
                 </div>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('codigo')->comment('Campo que indica el codigo ');
             $table->string('nombre')->nullable()->comment('Campo que indica el codigo padre ');
             $table->string('descripcion')->nullable()->comment('Campo que indica el codigo padre ');
+            $table->string('union')->nullable()->comment('Campo que indica unicon de categorias por ejemplo Habilidades del Perfil ');
             $table->boolean('activo')->default(true)->comment('Campo que indica el codigo padre ');
 
             $table->timestamps();

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\{Perfil, User, Catalogo};
+use App\Models\{Perfil, User, Categoria, Catalogo};
 use App\Http\Controllers\{PerfilController, SearchController};
 
 
@@ -34,7 +34,8 @@ class HomeController extends Controller
     public function vistaPerfil(){
             $user     = User::findOrFail(Auth::id());
             $perfil   = Perfil::where('usuario_id', $user->id)->first();
-            $catalogo = Catalogo::get()->toArray();
+            $cate_skill_arrays = Categoria::where('union', 'skill')->pluck('id')->toArray();
+            $catalogo = Catalogo::whereIn('categoria_id', $cate_skill_arrays)->get()->toArray();
             $social   = $this->control_perfil->validaSocialMedia($perfil);
             $catalogo = $this->control_perfil->validaMarca($catalogo, $perfil);
             

@@ -20,21 +20,25 @@ class CatalogosTableSeeder extends Seeder
         $moda = Categoria::Create([
             'codigo' => 'MODEL',
             'nombre'=> 'MODEL',
-            'descripcion'=> 'Categoria sobre tipos de modelos'
+            'descripcion'=> 'Categoria sobre tipos de modelos',
+            'union'=> 'SKILL'
+
         ]);
         
         //Categoria Deporte
         $deporte = Categoria::Create([
             'codigo' => 'SPORT',
             'nombre'=> 'SPORT',
-            'descripcion'=> 'Categoria sobre tipos de deportes'
+            'descripcion'=> 'Categoria sobre tipos de deportes',
+            'union'=> 'SKILL'
         ]);
         
         //Categoria Deporte
         $lenguages = Categoria::Create([
             'codigo' => 'LENGUAGES',
             'nombre'=> 'LENGUAGES',
-            'descripcion'=> 'Categoria sobre tipos de lenguajes'
+            'descripcion'=> 'Categoria sobre tipos de lenguajes',
+            'union'=> 'SKILL'
         ]);
         //Categoria Nacionalidad
         $nacionalidad = Categoria::Create([
