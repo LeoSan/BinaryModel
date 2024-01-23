@@ -9,6 +9,8 @@
     <link rel="shortcut icon" href="favicon.png">
     <meta name="description" content="BinaryModel" />
     <meta name="keywords" content="BinaryModel, Model, Skill, art" />
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Binary Models </title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
@@ -96,10 +98,55 @@
                 </div>
             </div>
         </section>
-
-        <span> En contruccion, en progreso </span>
+        {{-- Habilidades --}}
+        <section id="Caracteristicas" class="gallery">
+            <div class="container">
+                <h1 class="titulos text-center mb-3">Habilidades</h1>
+                <div id="cheks-caracteristicas">
+                    @forelse ( $catalogo as $key=> $list )
+                        <h3 class="mt-4 mb-4">{{$catalogo[$key]['nom_categoria']}}</h3>        
+                        <div class="form-check form-switch d-inline-block col-12">
+                            <input class="form-check-input check_marca" type="checkbox" role="switch" id="{{ $catalogo[$key]['id'] }}" name="{{$catalogo[$key]['nombre']}}" data-user="{{$perfil->usuario_id}}" data-id="{{$catalogo[$key]['id']}}"  @checked(old($catalogo[$key]['id'], $catalogo[$key]['check'] )) disabled  />
+                            <label class="form-check-label" for="{{$catalogo[$key]['id']}}">{{$catalogo[$key]['nombre']}}</label>
+                        </div>    
+                    @empty
+                        @include('components.data_not_found')
+                    @endforelse
+                </div>
+        </section>
+        {{-- Redes Sociales--}}
+        <section id="redesSociales" class=" mb-5">
+            <div class="container contenedor-bio">
+                <h1 class="titulos text-center mb-3">NETWORKS</h1>
+                <div class="offset-0 col-12 offset-md-3 col-md-6 mt-5">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <img src="{{ asset('images/icon/instagram.png') }}"  class="icons">
+                        </div>
+                        <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->usuario_id}}" data-nombre="Instagram" placeholder="Instagram" value="{{$social['Instagram'][0]}}" readonly />
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <img src="{{ asset('images/icon/tiktok.png') }}"  class="icons">
+                        </div>
+                        <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->usuario_id}}" data-nombre="Tiktok" placeholder="Tiktok" value="{{$social['Tiktok'][0]}}" readonly />
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <img src="{{ asset('images/icon/facebook.png') }}"  class="icons">
+                        </div>
+                        <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->usuario_id}}" data-nombre="Facebook" placeholder="Facebook" value="{{$social['Facebook'][0]}}" readonly />
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <img src="{{ asset('images/icon/twitter.png') }}"  class="icons">
+                        </div>
+                        <input type="text" class="form-control inputRedes" data-perfil="{{$perfil->usuario_id}}" data-nombre="Twitter" placeholder="Twitter" value="{{$social['Twitter'][0]}}" readonly/>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-
     {{-- Modal Filter --}}
     @include('components.filters', ['filtros'=>$filtros])
 </body>

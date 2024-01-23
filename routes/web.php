@@ -24,6 +24,7 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/search',[SearchController::class,'search'])->name('search');
+Route::post('/result-search',[SearchController::class,'getNumberResutAjax'])->name('search.number');
 Route::get('/{id}/perfil',[SearchController::class,'perfil'])->name('search.perfil');
 
 // use Illuminate\Support\Facades\Artisan;

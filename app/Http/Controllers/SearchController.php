@@ -3,13 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\{Response};
 
 use App\Models\{Perfil, Categoria, Catalogo};
+use App\Http\Controllers\{PerfilController};
 
 
 class SearchController extends Controller
 {
-
+    private $message_error = "Ocurrio un error, espere un momento y vuelva intentarlo por favor.";
+    private $message_success = "Se almaceno los datos de manera correcta.";
+    private $control_perfil;
+    
+    public function __construct()
+    {
+        $this->control_perfil = new PerfilController();
+    }
     public function search(Request $request){
        $tipo        = $request->input('tipo');
        $filtros     = $this->generarFiltrosBusqueda();
@@ -104,10 +113,13 @@ class SearchController extends Controller
         ->when($color_cabello, function($query)use($color_cabello){
             $query->where('color_cabello',$color_cabello);
         })
-        ->whereHas('marca',function($query)use($array_check_skill){//Consulto las habilidades
-            $query->whereIn('catalogo_id', $array_check_skill);
-        })
-        ->get();
+        ->when($array_check_skill, function($query)use($array_check_skill){
+            if (count($array_check_skill) > 0 ){
+                $query->whereHas('marca',function($query)use($array_check_skill){//Consulto las habilidades
+                        return $query->whereIn('catalogo_id', $array_check_skill);
+                });
+            }
+        })->get();
         
         return $perfiles; 
     }
@@ -133,7 +145,13 @@ class SearchController extends Controller
 
         $perfil = Perfil::findOrFail($id);
         $filtros     = $this->generarFiltrosBusqueda();
-        return view('components.perfil-detalle', compact('perfil','filtros'));
+
+        $cate_skill_arrays = Categoria::where('union', 'skill')->pluck('id')->toArray();
+        $catalogo = Catalogo::whereIn('categoria_id', $cate_skill_arrays)->get()->toArray();
+        $social   = $this->control_perfil->validaSocialMedia($perfil);
+        $catalogo = $this->control_perfil->validaMarca($catalogo, $perfil);
+
+        return view('components.perfil-detalle', compact('perfil','filtros', 'catalogo', 'social'));
     }
 
     public function obtenerSkillRequestDinamico(Request $request) : array {
@@ -150,5 +168,18 @@ class SearchController extends Controller
             }
         }
         return $array_check_skill; 
+    }
+
+    public function getNumberResutAjax(Request $request){
+
+        if (!$request->ajax()) {
+            return Response::json([
+                'message' => $this->message_error,
+                'error' =>  'Error Ajax',
+            ], 203);
+        }
+
+        dd($request->all());
+        
     }
 }

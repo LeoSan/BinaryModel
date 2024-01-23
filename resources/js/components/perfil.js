@@ -67,8 +67,6 @@ if(inpAltuta){
     inpAltuta.addEventListener("focusout", async(event) => {
         event.preventDefault();
         //Envio 
-       
-        
         var obj = {};
         obj['tipo'] = 'vista';
         obj['inpAltuta'] = inpAltuta.value;
