@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5714e99805148c2d9e76fb194e38f2d8cfe33749',
+        'reference' => '9c9ab578bcccf02f68f092ff6b404ba5d2c0442a',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -388,7 +388,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5714e99805148c2d9e76fb194e38f2d8cfe33749',
+            'reference' => '9c9ab578bcccf02f68f092ff6b404ba5d2c0442a',
             'dev_requirement' => false,
         ),
         'laravel/pint' => array(
@@ -533,12 +533,12 @@
             'dev_requirement' => true,
         ),
         'nesbot/carbon' => array(
-            'pretty_version' => '2.72.1',
-            'version' => '2.72.1.0',
+            'pretty_version' => '2.72.2',
+            'version' => '2.72.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nesbot/carbon',
             'aliases' => array(),
-            'reference' => '2b3b3db0a2d0556a177392ff1a3bf5608fa09f78',
+            'reference' => '3e7edc41b58d65509baeb0d4a14c8fa41d627130',
             'dev_requirement' => false,
         ),
         'nette/schema' => array(

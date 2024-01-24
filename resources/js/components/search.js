@@ -1,106 +1,84 @@
-const ruta = 'http://binarymodel.test/result-search';
-var obj = {};
-obj['tipo'] = 'vista';
+//Declaración de Variables y Componentes 
+import packageJson from "/package.json";
+const ruta =  `${packageJson.config.api}${packageJson.config.search}`;
+var obj    = {};
+let btnLimpiarFiltros = document.getElementById("btnLimpiarFiltros");
+const form_filter = document.getElementById("form_filter");
 
 //Metodos Dinamicos del Buscador y Filtros
 
-let btnLimpiarFiltros = document.getElementById("btnLimpiarFiltros");
-
-if (btnLimpiarFiltros){
-    btnLimpiarFiltros.addEventListener("click",function(e){
-        //e.preventDefault();
-        let form_filter = document.getElementById("form_filter");
-        form_filter.reset();
-    });
+if (btnLimpiarFiltros) {
+  btnLimpiarFiltros.addEventListener("click", function (e) {
+    //e.preventDefault();
+    let form_filter = document.getElementById("form_filter");
+    document.getElementById('badgesEncontrados').innerHTML = `0 Perfiles encontrados`;
+    form_filter.reset();
+  });
 }
 
-//Metodo del Filtrado 
+if (form_filter) {
+  escucharElementosDinamicos(form_filter, "select", "change");
+  escucharElementosDinamicos(form_filter, ".checkbox_skill", "click")
+}
 
-//Magia negra 
- const form_filter = document.getElementById("form_filter");
- escucharSelects(form_filter);
- //escucharCheckbox(form_filter)
-
-  function escucharSelects(form) {
-    const selects = form.querySelectorAll("select");
-    selects.forEach((select) => {
-      select.addEventListener("change", async(e) => {
-        //Declaro Variables 
-        let skills_arrays = [];
-        //Audiencia 
-        obj['edad'] = getValue('edad', "select");
-        obj['nacionalidad'] = getValue('nacionalidad', "select");
-        obj['genero'] = getValue('genero', "select");
-        obj['likes'] = getValue('likes', "select");
-        obj['views'] = getValue('views', "select");
-
-        //Rasgos Fisicos 
-        obj['altura'] = getValue('altura', "select");
-        obj['busto'] = getValue('busto', "select");
-        obj['cintura'] = getValue('cintura', "select");
-        obj['cadera'] = getValue('cadera', "select");
-        obj['calzado'] = getValue('calzado', "select");
-        obj['color_ojos'] = getValue('color_ojos', "select");
-        obj['color_cabello'] = getValue('color_cabello', "select");
-
-        // Habilidades 
-        const checkboxs = form.querySelectorAll(".form-check-input");
-        checkboxs.forEach((element) => {
-             if (element.checked == true){
-                skills_arrays.push( element.value );
-             }
-        });
-        obj['habilidades'] = skills_arrays;
-        console.log(obj);
-        const result = await sendAxios(obj, ruta); 
-      });//Fin del Bucle de select 
-           
-    });
-
-  }
-
-
-function escucharCheckbox(form) {
-    const checkboxs = form.querySelectorAll("checkbox");
-    checkboxs.forEach((checkbox) => {
-        checkbox.addEventListener("change", (e) => {
-        //Select Audiencia 
-        let edad = getValue('edad', "select");
-        let nacionalidad = getValue('nacionalidad', "select");
-        let genero = getValue('genero', "select");
-        let likes = getValue('likes', "select");
-        let views= getValue('views', "select");
-
-        // Rasgos Fisicos 
-        let altura= getValue('altura', "select");
-        let busto= getValue('busto', "select");
-        let cintura= getValue('cintura', "select");
-        let cadera= getValue('cadera', "select");
-        let calzado= getValue('calzado', "select");
-        let color_ojos= getValue('color_ojos', "select");
-        let color_cabello= getValue('color_cabello', "select");
-
-        // Habilidades 
-        let check_skill_1 = getValue('check_skill_1', "check");
-
-      });
-    });
-  }
-
-const getValue = (identificador, tipo)=>{
-    const element = document.getElementById(identificador);
-    //console.log(identificador);
-    if (tipo == "check"){
-        if (element.checked){
-            return element.value
+//Declaración de funciones 
+function escucharElementosDinamicos(form, elemento, tipo_evento) {
+  const selects = form.querySelectorAll(elemento);
+  selects.forEach((select) => {
+    select.addEventListener(tipo_evento, async (e) => {
+      //Declaro Variables 
+      let skills_arrays = [];
+      obj['tipo'] = 'contador';
+      //Audiencia 
+      obj['edad'] = getValue('edad', elemento);
+      obj['nacionalidad'] = getValue('nacionalidad', elemento);
+      obj['genero'] = getValue('genero', elemento);
+      obj['likes'] = getValue('likes', elemento);
+      obj['views'] = getValue('views', elemento);
+      //Rasgos Fisicos 
+      obj['altura'] = getValue('altura', elemento);
+      obj['busto'] = getValue('busto', elemento);
+      obj['cintura'] = getValue('cintura', elemento);
+      obj['cadera'] = getValue('cadera', elemento);
+      obj['calzado'] = getValue('calzado', elemento);
+      obj['color_ojos'] = getValue('color_ojos', elemento);
+      obj['color_cabello'] = getValue('color_cabello', elemento);
+      // Habilidades 
+      const checkboxs = form.querySelectorAll(".checkbox_skill");
+      checkboxs.forEach((element) => {
+        if (element.checked == true) {
+          skills_arrays.push(element.value);
         }
-    }else{
-        //console.log(element.value);
-        if (element.value > 0)
-            return element.value
-        else
-            return 0 
+      });
+      obj['habilidades'] = skills_arrays;
+      //console.log(obj['habilidades']);
+      //Conectar 
+      const result = await sendAxios(obj, ruta);
+
+      //Resultado
+      if (result.status == 201)
+        document.getElementById('badgesEncontrados').innerHTML = `${result.data.count} Perfiles encontrados`;
+      else
+        document.getElementById('badgesEncontrados').innerHTML = `${result.data.message}`;
+
+    });//Fin del Bucle de select 
+
+  });
+
+}
+const getValue = (identificador, tipo) => {
+  const element = document.getElementById(identificador);
+  //console.log(identificador);
+  if (tipo == "check") {
+    if (element.checked) {
+      return element.value
     }
-    
+  } else {
+    //console.log(element.value);
+    if (element.value > 0)
+      return element.value
+    else
+      return 0
+  }
 }
 
