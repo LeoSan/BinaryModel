@@ -3,6 +3,7 @@ Proyecto Piloto
 
 ## Pasos para validar desarrollo. 
 - composer install
+
 - `composer dump-autoload`
 - php artisan migrate:refresh --seed
 - en el archivo perfil.js se que encuentra en la siguiente ruta `C:\laragon\www\BinaryModel\resources\js\components\perfil.js` debes cambiar la primera linea con el localhost de tu local o servidor esta actualmente así `const ruta = 'http://binarymodel.test/perfil/registrar';` debes quitar 'http://binarymodel.test' y colocar la nueva ruta 
@@ -10,3 +11,14 @@ Proyecto Piloto
 - si estas en local debes correr esye commando `npm run dev` 
 - si vas a subir al servidor no olvides reconfiguarar el archivo perfil.js y correr el comando `npm run build`
  
+
+- npm i
+- Configurar en el package.json -> la ruta de local host en los parametros config
+- npm run dev
+- php artisan migrate:refresh --seed
+  
+## Funcionalidad Primero Version 
+- Login 
+- Formulario Dinamico
+- Vista Perfil
+
