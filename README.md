@@ -1,16 +1,25 @@
 # BinaryModel
-Proyecto Piloto 
+Proyecto Piloto aplicando mejores practicas 
+- Inicio:  01/12/2023  
+- Avances: 24/01/2024 
 
 ## Pasos para validar desarrollo. 
 - composer install
-- npm i
-- se debe configurar la ruta con el dominio que se suba:
-    - Paso 1: buscar el archivo -> `\resources\js\components\perfil.js`
-    - Paso 2: buscar la variable `ruta` y reemplazar `http://binarymodel.test` por el dominio generado  
-- npm run dev
+- `composer dump-autoload`
 - php artisan migrate:refresh --seed
+- npm i
+- Configurar en el package.json -> la ruta de local host en los parametros config
+- npm run dev
   
 ## Funcionalidad Primero Version 
 - Login 
 - Formulario Dinamico
 - Vista Perfil
+- Buscador General 
+- Buscador Filtros
+- Detalle Perfil 
+- Home Barra de Busqueda 
+
+**Pendientes**
+- Home Scroll 
+
