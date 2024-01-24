@@ -9,7 +9,7 @@
         <h2 class="gallery__title"> {{$fila->nombre_anexo}}</h2>
       </div>
     @empty
-      <p class="text-center pt-5">¡  Data Nothing  !</p> 
+      @include('components.data_not_found')
     @endforelse
   </div>
 </section>

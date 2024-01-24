@@ -189,4 +189,9 @@ footer {
     grid-column-start: span 2;
 }
 
-
+/*Avatar*/
+.img-avatar{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}

@@ -1,0 +1,56 @@
+// Ajuste en el home
+.form-search, .form-filtro {
+    h6{
+        color:$gold;
+        font-weight: bold;
+        margin-top: 0.9rem;
+    }
+    
+    input{
+        border: 1px solid $gold !important;
+        color: black;
+    }
+
+    input:focus {
+        color: $gold;
+    }
+
+    .inp-search{
+        width: 600px;
+    }
+
+    .btn-search, .btn-filtrar{
+        padding: 6px 20px;
+        border-radius: 30px;
+        background: $gold;
+        border: 2px solid $gold;
+        color: $dark;
+        font-weight: bold;
+        &:hover{
+            color: $gold;
+            background: $dark;
+            border: 2px solid #2e2e2e;
+        }
+    }
+
+    .badge{
+        padding: 6px 20px !important;
+        border-radius: 30px !important;
+        background: $gold !important;
+        border: 1px solid $gold !important;
+        font-weight: bold !important;
+        height: 35px !important;
+        font-size: 16px;
+    }
+    .form-check-label{
+        color: $gold !important;
+    }
+
+
+}
+
+
+.fill-gold {
+    width: 18px;
+    height: 18px;
+}

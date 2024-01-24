@@ -11,10 +11,15 @@ class Catalogo extends Model
 
     protected $table = 'catalogos';
     protected $fillable = [
-        'codigo',
-        'codigo_padre',
+        'categoria_id',
         'nombre',
-        'descripcion'
+        'descripcion',
+        'activo'
     ];
+
+
+    public function categoria(){
+        return $this->belongsTo(Categoria::class,'categoria_id', 'id');
+    }
 
 }

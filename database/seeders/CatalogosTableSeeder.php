@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\{ Catalogo };
+use App\Models\{ Categoria, Catalogo };
 
 class CatalogosTableSeeder extends Seeder
 {
@@ -16,83 +16,185 @@ class CatalogosTableSeeder extends Seeder
     public function run()
     {
 
+        //Categoria de moda
+        $moda = Categoria::Create([
+            'codigo' => 'MODEL',
+            'nombre'=> 'MODEL',
+            'descripcion'=> 'Categoria sobre tipos de modelos',
+            'union'=> 'SKILL'
+
+        ]);
+        
+        //Categoria Deporte
+        $deporte = Categoria::Create([
+            'codigo' => 'SPORT',
+            'nombre'=> 'SPORT',
+            'descripcion'=> 'Categoria sobre tipos de deportes',
+            'union'=> 'SKILL'
+        ]);
+        
+        //Categoria Deporte
+        $lenguages = Categoria::Create([
+            'codigo' => 'LENGUAGES',
+            'nombre'=> 'LENGUAGES',
+            'descripcion'=> 'Categoria sobre tipos de lenguajes',
+            'union'=> 'SKILL'
+        ]);
+        //Categoria Nacionalidad
+        $nacionalidad = Categoria::Create([
+            'codigo' => 'NACIONALIDAD',
+            'nombre'=> 'NACIONALIDAD',
+            'descripcion'=> 'Describe la nacionalidad del perfil'
+        ]);
+        
+        //Categoria Nacionalidad
+        $genero = Categoria::Create([
+            'codigo' => 'GENERO',
+            'nombre'=> 'GENERO',
+            'descripcion'=> 'Describe el tipo de genero'
+        ]);
+        
+        
         //Catálogo de moda
         Catalogo::updateOrCreate([
-            'codigo' => 'RUNWAY_MODEL',
-            'codigo_padre'=> 'IN FASHION',
             'nombre'=> 'RUNWAY MODEL',
-            'descripcion'=> 'RUNWAY MODEL'
+            'descripcion'=> 'RUNWAY MODEL',
+            'categoria_id'=> $moda->id
         ]);
 
         Catalogo::updateOrCreate([
-            'codigo' => 'COMMERCIAL_MODEL',
-            'codigo_padre'=> 'IN FASHION',
             'nombre'=> 'COMMERCIAL MODEL',
-            'descripcion'=> 'COMMERCIAL MODEL'
+            'descripcion'=> 'COMMERCIAL MODEL',
+            'categoria_id'=> $moda->id
         ]);
 
         Catalogo::updateOrCreate([
-            'codigo' => 'CATALOG_MODEL',
-            'codigo_padre'=> 'IN FASHION',
             'nombre'=> 'CATALOG MODEL',
-            'descripcion'=> 'CATALOG MODEL'
+            'descripcion'=> 'CATALOG MODEL',
+            'categoria_id'=> $moda->id
         ]);
 
         Catalogo::updateOrCreate([
-            'codigo' => 'FASHION_MODEL',
-            'codigo_padre'=> 'IN FASHION',
             'nombre'=> 'FASHION MODEL',
-            'descripcion'=> 'FASHION_MODEL'
+            'descripcion'=> 'FASHION_MODEL',
+            'categoria_id'=> $moda->id
         ]);
 
 
         //Catálogo de Deportes
-
         Catalogo::updateOrCreate([
-            'codigo' => 'SPORT_BASEBALL',
-            'codigo_padre'=> 'IN SPORTS',
-            'nombre'=> 'BASEBALL',
-            'descripcion'=> 'BASEBALL'
-        ]);
-
-        Catalogo::updateOrCreate([
-            'codigo' => 'SPORT_FOOTBALL',
-            'codigo_padre'=> 'IN SPORTS',
             'nombre'=> 'FOOTBALL',
-            'descripcion'=> 'FOOTBALL'
+            'descripcion'=> 'FOOTBALL',
+            'categoria_id'=> $deporte->id
         ]);
 
         Catalogo::updateOrCreate([
-            'codigo' => 'SPORT_SKATE',
-            'codigo_padre'=> 'IN SPORTS',
             'nombre'=> 'SKATE',
-            'descripcion'=> 'SKATE'
+            'descripcion'=> 'SKATE',
+            'categoria_id'=> $deporte->id
         ]);
 
         Catalogo::updateOrCreate([
-            'codigo' => 'SPORT_INLINE_SKATES',
-            'codigo_padre'=> 'IN SPORTS',
             'nombre'=> 'INLINE SKATES',
-            'descripcion'=> 'INLINE SKATES'
+            'descripcion'=> 'INLINE SKATES',
+            'categoria_id'=> $deporte->id
         ]);
 
         Catalogo::updateOrCreate([
-            'codigo' => 'SPORT_BICYCLE',
-            'codigo_padre'=> 'IN SPORTS',
             'nombre'=> 'BICYCLE',
-            'descripcion'=> 'BICYCLE'
+            'descripcion'=> 'BICYCLE',
+            'categoria_id'=> $deporte->id
         ]);
         
         Catalogo::updateOrCreate([
-            'codigo' => 'SPORT_EXTREME',
-            'codigo_padre'=> 'IN SPORTS',
-            'nombre'=> 'EXTREME',
-            'descripcion'=> 'EXTREME'
+            'nombre'=> 'ENGLISH',
+            'descripcion'=> 'ENGLISH',
+            'categoria_id'=> $lenguages->id
         ]);
 
+        Catalogo::updateOrCreate([
+            'nombre'=> 'PORTUGUESE',
+            'descripcion'=> 'PORTUGUESE',
+            'categoria_id'=> $lenguages->id
+        ]);
+        
+        
+        //Catálogo de Nacionalidad
+        Catalogo::updateOrCreate([
+            'nombre'=> 'ESPAÑA',
+            'descripcion'=> 'ESPAÑA',
+            'categoria_id'=> $nacionalidad->id,
+            'activo'=>0,
+            
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'MÉXICO',
+            'descripcion'=> 'MÉXICO',
+            'categoria_id'=> $nacionalidad->id,
+            'activo'=>0,
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'COLOMBIA',
+            'descripcion'=> 'COLOMBIA',
+            'categoria_id'=> $nacionalidad->id,
+            'activo'=>0,
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'COLOMBIA',
+            'descripcion'=> 'COLOMBIA',
+            'categoria_id'=> $nacionalidad->id,
+            'activo'=>0,
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'VENEZUELA',
+            'descripcion'=> 'VENEZUELA',
+            'categoria_id'=> $nacionalidad->id,
+            'activo'=>0,
+        ]);
 
-
-
+        //Catálogo de Genero
+        Catalogo::updateOrCreate([
+            'nombre'=> 'BINARIO',
+            'descripcion'=> ' El género binario se refiere a las identidades de género que se identifican como masculinas o femeninas. Son las identidades de género más comunes y aceptadas en la sociedad',
+            'categoria_id'=> $genero->id,
+            'activo'=>0,
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'NO BINARIO',
+            'descripcion'=> 'El género no binario se refiere a las identidades de género que no se identifican como masculinas ni femeninas. Pueden identificarse como agénero, bigénero, género fluido',
+            'categoria_id'=> $genero->id,
+            'activo'=>0,
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'INTERSEXUALIDAD',
+            'descripcion'=> 'La intersexualidad es una condición en la que una persona nace con características sexuales que no se ajustan a las definiciones tradicionales de masculino o femenino',
+            'categoria_id'=> $genero->id,
+            'activo'=>0,
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'FLUIDO',
+            'descripcion'=> 'El género fluido es una identidad de género que cambia o fluye con el tiempo. Una persona de género fluido puede identificarse como masculina un día, femenina al siguiente, o como algo completamente diferente',
+            'categoria_id'=> $genero->id,
+            'activo'=>0,
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'QUEER',
+            'descripcion'=> 'El género queer es un término paraguas que se usa para describir las identidades de género que no se ajustan a las normas tradicionales.',
+            'categoria_id'=> $genero->id,
+            'activo'=>0,
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'FEMENINO',
+            'descripcion'=> 'Femenino.',
+            'categoria_id'=> $genero->id,
+            'activo'=>0,
+        ]);
+        Catalogo::updateOrCreate([
+            'nombre'=> 'MASCULINO',
+            'descripcion'=> 'Masculino.',
+            'categoria_id'=> $genero->id,
+            'activo'=>0,
+        ]);
         
     }
 }

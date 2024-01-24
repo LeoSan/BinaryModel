@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('catalogos', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Campo Primary Key');
-            $table->string('codigo')->comment('Campo que indica el codigo ');
-            $table->string('codigo_padre')->nullable()->comment('Campo que indica el codigo padre ');
-            $table->string('nombre')->nullable()->comment('Campo que indica el codigo padre ');
-            $table->string('descripcion')->nullable()->comment('Campo que indica el codigo padre ');
+            $table->unsignedBigInteger('categoria_id')->comment('Campo FK relacionado con la tabla usuario');
+            $table->string('nombre')->nullable()->comment('Campo nombre ');
+            $table->string('descripcion')->nullable()->comment('Campo descripcion ');
+            $table->boolean('activo')->default(true)->comment('Campo que indica si esta activo ');
+
+            //Relaciones
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });

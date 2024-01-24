@@ -16,7 +16,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(5)->create();
 
         User::factory()->create([
             'name' => 'Leonard',
@@ -24,5 +23,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'cuenca623@gmail.com',
             'password'=>Hash::make('hola')
         ]);
+
+        User::factory()->count(100)->create();
+
     }
 }

@@ -1,6 +1,4 @@
-//funciones Helpers 
-
-//funciones Globales
+//Funciones Globales
 window.sendFetch = async  (datos, ruta)=>{
     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     let result = await fetch(ruta, {
@@ -60,6 +58,18 @@ window.pintaRespuesta = (resp)=>{
 
 }
 
+window.eliminaFotoGalleria = async (event) => {
+    //console.log(event.dataset.id);
+    var obj = {};
+    obj['tipo'] = 'foto_eliminar';
+    obj['id'] = event.dataset.id;
+    const result = await sendAxios(obj, ruta);
+    pintaRespuesta(result);
+    if (result.data.estatus == 201) {
+        document.getElementById(`frow_${event.dataset.id}`).remove();
+        document.getElementById(`row_filas_${event.dataset.id}`).remove();
+    }
+}
 
 //Funciones operacionales 
 function metodosValidacionPorTeclado(event, tipo_validacion) {

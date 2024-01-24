@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CatalogosTableSeeder::class,
             UsersTableSeeder::class,
+            PerfilSeeder::class,
+            FileSeeder::class,
 
         ]);
 
